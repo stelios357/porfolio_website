@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aman Jain — Data Scientist · ML Engineer · Applied Scientist</title>
+<meta name="description" content="Senior Data Scientist and ML Engineer. Built ranking, personalization, and pricing systems at 100k+ user scale. Architected India's first SEBI-compliant agentic trading platform. Published NLP researcher.">
+<meta property="og:title" content="Aman Jain — ML Engineer & Data Scientist">
+<meta property="og:description" content="Ranking · Personalization · Agentic AI · Published Researcher">
+<meta property="og:url" content="https://amanjain.codes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── RESET ────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── TOKENS ───────────────────────────────────────────────────────────────── */
+:root {
+  --bg:          #080C14;
+  --surface:     #0D1220;
+  --surface-2:   #121A2E;
+  --surface-3:   #18223C;
+  --border:      #1C2840;
+  --border-2:    #253352;
+  --text:        #DDE4F0;
+  --text-muted:  #7E92B8;
+  --text-dim:    #3D4F72;
+  --amber:       #F0A030;
+  --amber-dim:   #8A5A10;
+  --amber-glow:  rgba(240,160,48,0.12);
+  --blue:        #4A8FE0;
+  --teal:        #22C9A0;
+  --teal-dim:    rgba(34,201,160,0.1);
+  --red:         #E05858;
+  --font-display:'Fraunces', Georgia, serif;
+  --font-mono:   'JetBrains Mono', 'Courier New', monospace;
+  --font-body:   'DM Sans', system-ui, sans-serif;
+  --radius:      6px;
+  --radius-lg:   12px;
+  --max-w:       1120px;
+  --nav-h:       64px;
+}
+
+/* ── BASE ─────────────────────────────────────────────────────────────────── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* grid-dot background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 36px 36px;
+  pointer-events: none;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 1;
+}
+
+a { color: var(--amber); text-decoration: none; transition: opacity 0.2s; }
+a:hover { opacity: 0.8; }
+
+/* ── CUSTOM CURSOR ────────────────────────────────────────────────────────── */
+#cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--amber);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.2s, height 0.2s, opacity 0.2s;
+  mix-blend-mode: screen;
+}
+#cursor-ring {
+  position: fixed;
+  width: 32px; height: 32px;
+  border: 1px solid rgba(240,160,48,0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out, width 0.25s, height 0.25s, opacity 0.3s;
+}
+
+/* ── NAV ──────────────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s, border-color 0.3s;
+}
+nav.scrolled {
+  background: rgba(8,12,20,0.92);
+  backdrop-filter: blur(12px);
+  border-color: var(--border);
+}
+.nav-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--amber);
+  letter-spacing: 0.02em;
+}
+.nav-logo span { color: var(--text-muted); }
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--amber); opacity: 1; }
+.nav-cta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 8px 16px;
+  border: 1px solid var(--amber-dim);
+  border-radius: var(--radius);
+  color: var(--amber) !important;
+  transition: background 0.2s, border-color 0.2s !important;
+}
+.nav-cta:hover { background: var(--amber-glow); border-color: var(--amber); opacity: 1 !important; }
+
+/* ── HERO ─────────────────────────────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--nav-h);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ambient gradient */
+#hero::after {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(240,160,48,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 1px;
+  background: var(--amber);
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 6vw, 80px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.hero-name em {
+  font-style: italic;
+  color: var(--amber);
+}
+
+.hero-roles {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 20px 0 32px;
+  height: 22px;
+  overflow: hidden;
+}
+#role-text {
+  display: inline;
+  color: var(--teal);
+}
+#cursor-blink {
+  display: inline-block;
+  width: 2px; height: 16px;
+  background: var(--amber);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 40px;
+}
+.hero-desc strong { color: var(--text); }
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--amber);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-primary:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(240,160,48,0.3);
+  color: var(--bg);
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: 1px solid var(--border-2);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  border-radius: var(--radius);
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover {
+  opacity: 1;
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+.hero-badge-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.hero-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 4px 10px;
+  border: 1px solid var(--border-2);
+  border-radius: 20px;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+}
+
+/* hero right: system diagram */
+.hero-visual {
+  position: relative;
+  aspect-ratio: 1;
+  max-width: 460px;
+  margin-left: auto;
+}
+.sys-node {
+  position: absolute;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: border-color 0.3s, color 0.3s;
+}
+.sys-node.active {
+  border-color: var(--amber-dim);
+  color: var(--amber);
+}
+.sys-node .node-label {
+  font-size: 9px;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.sys-canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+.sys-nodes-wrapper { position: absolute; inset: 0; }
+
+/* ── SECTION SHARED ───────────────────────────────────────────────────────── */
+section {
+  padding: 100px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::before {
+  content: '';
+  width: 20px; height: 1px;
+  background: var(--amber);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.section-title em { font-style: italic; color: var(--amber); }
+
+.section-sub {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 540px;
+  line-height: 1.7;
+}
+
+/* ── IMPACT METRICS ───────────────────────────────────────────────────────── */
+#impact {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-top: 60px;
+}
+.metric-card {
+  background: var(--surface);
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.metric-card:hover { background: var(--surface-2); }
+.metric-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.metric-card:hover::before { transform: scaleX(1); }
+
+.metric-number {
+  font-family: var(--font-mono);
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--amber);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.metric-number .prefix { font-size: 28px; }
+.metric-number .suffix { font-size: 28px; }
+.metric-label {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.metric-context {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+.metric-source {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  background: var(--surface-3);
+  border-radius: 20px;
+  color: var(--text-dim);
+}
+
+/* ── EXPERIENCE ───────────────────────────────────────────────────────────── */
+.exp-timeline {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.exp-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 48px;
+  position: relative;
+  padding-bottom: 48px;
+}
+.exp-item:last-child { padding-bottom: 0; }
+
+/* vertical line */
+.exp-item::before {
+  content: '';
+  position: absolute;
+  left: 199px;
+  top: 28px;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+.exp-item:last-child::before { display: none; }
+
+.exp-dot {
+  position: absolute;
+  left: 193px;
+  top: 22px;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  border: 2px solid var(--border-2);
+  transition: border-color 0.3s, background 0.3s;
+  z-index: 1;
+}
+.exp-item.active .exp-dot {
+  background: var(--amber);
+  border-color: var(--amber);
+  box-shadow: 0 0 12px rgba(240,160,48,0.5);
+}
+
+.exp-meta {
+  text-align: right;
+  padding-top: 8px;
+}
+.exp-period {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+.exp-company-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.exp-content {
+  padding-top: 6px;
+}
+.exp-company {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.exp-role {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--teal);
+  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+}
+
+.exp-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.exp-item.open .exp-bullets { max-height: 800px; }
+
+.exp-bullets li {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  padding-left: 16px;
+  position: relative;
+}
+.exp-bullets li::before {
+  content: '▪';
+  position: absolute;
+  left: 0;
+  color: var(--amber-dim);
+  font-size: 10px;
+  top: 5px;
+}
+.exp-bullets li strong { color: var(--text); }
+
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+}
+.exp-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-dim);
+}
+
+.exp-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  transition: color 0.2s;
+}
+.exp-toggle:hover { color: var(--amber); }
+.exp-toggle .arrow {
+  display: inline-block;
+  transition: transform 0.3s;
+}
+.exp-item.open .exp-toggle .arrow { transform: rotate(90deg); }
+
+/* ── PROJECTS ─────────────────────────────────────────────────────────────── */
+#projects { background: var(--surface); border-top: 1px solid var(--border); }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 60px;
+}
+.project-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.2s;
+}
+.project-card:hover {
+  border-color: var(--border-2);
+  transform: translateY(-2px);
+}
+.project-card.featured {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.project-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.project-name {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.project-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+
+.project-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.proj-metric {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.proj-metric-val {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--amber);
+  min-width: 80px;
+}
+.proj-metric-label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Architecture diagram */
+.arch-diagram {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.arch-layer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  border-radius: var(--radius);
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: border-color 0.3s, color 0.3s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.arch-layer:hover {
+  border-color: var(--amber-dim);
+  color: var(--amber);
+}
+.arch-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--amber-glow), transparent);
+  transform: translateX(-100%);
+  transition: none;
+}
+.arch-layer:hover::after {
+  animation: shimmer 0.6s ease forwards;
+}
+@keyframes shimmer {
+  to { transform: translateX(100%); }
+}
+.arch-layer-num {
+  font-size: 9px;
+  color: var(--text-dim);
+  min-width: 16px;
+}
+.arch-arrow {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 10px;
+  margin: 2px 0;
+  font-family: var(--font-mono);
+}
+
+/* ── SKILLS ───────────────────────────────────────────────────────────────── */
+.skills-groups {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-top: 60px;
+}
+.skill-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: border-color 0.3s;
+}
+.skill-group:hover { border-color: var(--border-2); }
+.skill-group-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.skill-group-name::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  cursor: default;
+}
+.skill-chip:hover {
+  border-color: var(--amber-dim);
+  color: var(--amber);
+  background: var(--amber-glow);
+}
+
+/* ── RESEARCH ─────────────────────────────────────────────────────────────── */
+.paper-card {
+  margin-top: 48px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: start;
+  transition: border-color 0.3s;
+}
+.paper-card:hover { border-color: var(--border-2); }
+.paper-venue {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+.paper-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+.paper-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+.paper-abstract {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.paper-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 140px;
+}
+.paper-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: border-color 0.2s, color 0.2s;
+}
+.paper-link:hover { border-color: var(--amber-dim); color: var(--amber); opacity: 1; }
+
+/* ── CONTACT ──────────────────────────────────────────────────────────────── */
+#contact {
+  border-top: 1px solid var(--border);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding: 80px 0;
+}
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.contact-row-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  min-width: 80px;
+}
+.contact-row-val {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.contact-row-val a { color: var(--text-muted); }
+.contact-row-val a:hover { color: var(--amber); opacity: 1; }
+
+.contact-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--teal);
+  margin-bottom: 24px;
+}
+.status-dot {
+  width: 8px; height: 8px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: pulse-green 2s infinite;
+}
+@keyframes pulse-green {
+  0%,100% { box-shadow: 0 0 0 0 rgba(34,201,160,0.4); }
+  50%      { box-shadow: 0 0 0 6px rgba(34,201,160,0); }
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+.footer-links a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--amber); opacity: 1; }
+
+/* ── REVEAL ANIMATION ─────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-grid        { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual      { display: none; }
+  .metrics-grid     { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid    { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+  .skills-groups    { grid-template-columns: 1fr; }
+  .contact-grid     { grid-template-columns: 1fr; }
+  .paper-card       { grid-template-columns: 1fr; }
+  .exp-item         { grid-template-columns: 1fr; }
+  .exp-item::before { display: none; }
+  .exp-dot          { display: none; }
+  .exp-meta         { text-align: left; }
+  .nav-links        { display: none; }
+  .container        { padding: 0 20px; }
+}
+@media (max-width: 600px) {
+  .metrics-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ── NAV ────────────────────────────────────────────────────────────────── -->
+<nav id="nav">
+  <div class="container nav-inner">
+    <div class="nav-logo">AJ<span>.codes</span></div>
+    <ul class="nav-links">
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="mailto:amanj3335@gmail.com" class="nav-cta">Get in touch →</a>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">Available for Senior DS · MLE · Applied Scientist roles</div>
+        <h1 class="hero-name">Aman<br><em>Jain.</em></h1>
+        <div class="hero-roles">
+          <span style="color:var(--text-dim)">_ </span><span id="role-text"></span><span id="cursor-blink"></span>
+        </div>
+        <p class="hero-desc">
+          I build ML systems that move metrics at scale —
+          <strong>ranking, personalization, and pricing</strong> for 100k+ monthly users at Cars24,
+          and <strong>India's first SEBI-compliant agentic trading platform</strong> at KotiLabs.
+          4+ years across marketplaces, fintech, and AI products.
+        </p>
+        <div class="hero-ctas">
+          <a href="#projects" class="btn-primary">View my work ↓</a>
+          <a href="#contact" class="btn-secondary">Contact me</a>
+        </div>
+        <div class="hero-badge-row">
+          <span class="hero-badge">B.Tech + M.Tech CSE · LNMIT</span>
+          <span class="hero-badge">Published · JURISIN 2022 · Springer LNAI</span>
+          <span class="hero-badge">LeetCode · 234 solved</span>
+        </div>
+      </div>
+
+      <!-- System Architecture Visual -->
+      <div class="hero-visual">
+        <svg class="sys-canvas" id="arch-svg"></svg>
+        <div class="sys-nodes-wrapper" id="arch-nodes">
+          <div class="sys-node" id="n-user" style="top:2%;left:35%">
+            <span class="node-label">user intent</span>
+            Voice / Chat Input
+          </div>
+          <div class="sys-node" id="n-router" style="top:18%;left:20%">
+            <span class="node-label">L2 · intent router</span>
+            Mastra AI · LLM
+          </div>
+          <div class="sys-node" id="n-opa" style="top:18%;left:58%">
+            <span class="node-label">L5 · compliance</span>
+            OPA / Rego
+          </div>
+          <div class="sys-node" id="n-dsl" style="top:40%;left:20%">
+            <span class="node-label">L3 · strategy</span>
+            JSON DSL Engine
+          </div>
+          <div class="sys-node" id="n-bt" style="top:40%;left:55%">
+            <span class="node-label">L3 · backtester</span>
+            VectorBT · 500+ inst.
+          </div>
+          <div class="sys-node" id="n-db" style="top:60%;left:10%">
+            <span class="node-label">storage</span>
+            ClickHouse · TimescaleDB
+          </div>
+          <div class="sys-node" id="n-exec" style="top:60%;left:50%">
+            <span class="node-label">L4 · execution</span>
+            Zerodha · Groww · Upstox
+          </div>
+          <div class="sys-node" id="n-rag" style="top:80%;left:25%">
+            <span class="node-label">memory · RAG</span>
+            pgvector · HNSW
+          </div>
+          <div class="sys-node" id="n-sebi" style="top:80%;left:58%">
+            <span class="node-label">status</span>
+            SEBI Apr 2026 ✓
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── IMPACT METRICS ──────────────────────────────────────────────────────── -->
+<section id="impact">
+  <div class="container">
+    <div class="section-label reveal">Impact by numbers</div>
+    <h2 class="section-title reveal">Production ML.<br><em>Measurable outcomes.</em></h2>
+
+    <div class="metrics-grid">
+      <div class="metric-card reveal">
+        <div class="metric-number">
+          <span class="prefix">+</span><span class="counter" data-target="150">0</span><span class="suffix">%</span>
+        </div>
+        <div class="metric-label">Click Recall@50 improvement</div>
+        <div class="metric-context">12% → 30% · User-level personalization vs 25-cohort baseline</div>
+        <div class="metric-source">Cars24 · N1 Personalization</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-1">
+        <div class="metric-number">
+          <span class="prefix">+</span><span class="counter" data-target="21">0</span><span class="suffix">%</span>
+        </div>
+        <div class="metric-label">V2Bi uplift on default ranking</div>
+        <div class="metric-context">Top-5 deciles · OOT validated + live A/B confirmed</div>
+        <div class="metric-source">Cars24 · Default Sort V2</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-2">
+        <div class="metric-number">
+          <span class="counter" data-target="400">0</span><span class="suffix">M+</span>
+        </div>
+        <div class="metric-label">Logo comparisons per pipeline run</div>
+        <div class="metric-context">AWS S3 + Hive · SLA-bound to Fortune 500 clients</div>
+        <div class="metric-source">6sense · Logo Comparison</div>
+      </div>
+      <div class="metric-card reveal">
+        <div class="metric-number">
+          <span class="counter" data-target="70">0</span><span class="suffix">%</span>
+        </div>
+        <div class="metric-label">FSP predictions within ±5% of sale price</div>
+        <div class="metric-context">LLM-structured inspection features · 60% inventory coverage</div>
+        <div class="metric-source">Cars24 · Pricing Model</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-1">
+        <div class="metric-number">
+          <span class="counter" data-target="500">0</span><span class="suffix">+</span>
+        </div>
+        <div class="metric-label">Instruments screened per run</div>
+        <div class="metric-context">&gt;10× throughput vs sequential · Memory-bounded vectorized execution</div>
+        <div class="metric-source">KotiLabs · Batch Screener</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-2">
+        <div class="metric-number">
+          <span class="counter" data-target="9">0</span>
+        </div>
+        <div class="metric-label">Production ML models migrated to GA4</div>
+        <div class="metric-context">Zero downtime · Full data integrity · Shadow-mode validation</div>
+        <div class="metric-source">Cars24 · GA4 Migration</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ──────────────────────────────────────────────────────────── -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label reveal">Career</div>
+    <h2 class="section-title reveal">Where I've<br><em>built things.</em></h2>
+
+    <div class="exp-timeline" id="exp-timeline">
+
+      <!-- KotiLabs -->
+      <div class="exp-item active" id="exp-kl">
+        <div class="exp-dot"></div>
+        <div class="exp-meta">
+          <div class="exp-period">July 2025 – Present</div>
+          <div class="exp-company-tag">Bengaluru</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-company">KotiLabs</div>
+          <div class="exp-role">FOUNDING ENGINEER — AAGMAN AI</div>
+          <ul class="exp-bullets">
+            <li>Architected a <strong>5-layer neuro-symbolic trading platform (0→1)</strong> — SEBI April 2026 compliant: LLM planning (Mastra AI) + deterministic OPA/Rego policy enforcement, guaranteeing zero hallucination-induced regulatory breach</li>
+            <li>Designed a <strong>JSON DSL compiler</strong> as a safe LLM output format — AI selects building blocks, interpreter executes them; eliminates arbitrary code execution and prompt injection risk in financial execution</li>
+            <li>Built <strong>VectorBT-backed backtesting engine</strong> with golden test suites verifying exact trade counts, timestamps, and metrics across all executions — deterministic by design</li>
+            <li>Engineered <strong>vectorized batch screener</strong> processing 500+ instruments per run at &gt;10× sequential throughput; real-time ClickHouse + TimescaleDB ingestion pipeline with multi-broker adapters (Zerodha, Groww, Angel One, Upstox)</li>
+            <li>Designed <strong>HNSW-indexed RAG memory</strong> (pgvector) with hybrid BM25 + dense retrieval; intent router (distilled Llama-3 8B + Redis semantic cache) reduces full LLM calls by &gt;90%</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Python</span><span class="exp-tag">OPA/Rego</span><span class="exp-tag">ClickHouse</span>
+            <span class="exp-tag">TimescaleDB</span><span class="exp-tag">VectorBT</span><span class="exp-tag">pgvector</span>
+            <span class="exp-tag">Mastra AI</span><span class="exp-tag">FastAPI</span><span class="exp-tag">SEBI Compliance</span>
+          </div>
+          <button class="exp-toggle" onclick="toggleExp('exp-kl')">
+            <span class="arrow">▶</span> <span class="toggle-label">Show details</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cars24 -->
+      <div class="exp-item" id="exp-c24">
+        <div class="exp-dot"></div>
+        <div class="exp-meta">
+          <div class="exp-period">Dec 2023 – July 2025</div>
+          <div class="exp-company-tag">Gurugram</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-company">Cars24</div>
+          <div class="exp-role">DATA SCIENTIST — RANKING, PERSONALIZATION & PRICING</div>
+          <ul class="exp-bullets">
+            <li><strong>N1 user-level personalization</strong> — replaced 25-cohort system; +150% Click Recall@50, +8% U2BI uplift across 100k+ monthly sessions; solved cold-start for zero-click users (35% of base) via implicit search/filter signals</li>
+            <li><strong>GBDT Default Sort V2</strong> — dynamic de-boosting of underperforming inventory; +21% V2Bi uplift (top-5 deciles); out-of-time validated + live A/B confirmed; PSI monitoring for ongoing drift detection</li>
+            <li><strong>FSP pricing model</strong> — vehicle fingerprint + demand/supply + LLM-structured inspection data; ~70% predictions within ±5% of actual sale price; multi-dimensional OOT evaluation framework</li>
+            <li><strong>Similar Cars hybrid recommendation</strong> (70:30 collab:content) — +6% impressions, +12% SimilarCar U2Bi; resolved exploration-vs-exploitation tradeoff</li>
+            <li>Migrated <strong>9 DS models</strong> to GA4 with zero downtime; owned cross-geo DS for UAE, Thailand, and Australia simultaneously</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">GBDT</span><span class="exp-tag">LightGBM</span><span class="exp-tag">Collaborative Filtering</span>
+            <span class="exp-tag">A/B Testing</span><span class="exp-tag">Recall@K</span><span class="exp-tag">Snowflake</span>
+            <span class="exp-tag">Redis</span><span class="exp-tag">LLM Features</span><span class="exp-tag">Multi-geo</span>
+          </div>
+          <button class="exp-toggle" onclick="toggleExp('exp-c24')">
+            <span class="arrow">▶</span> <span class="toggle-label">Show details</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 6sense -->
+      <div class="exp-item" id="exp-6s">
+        <div class="exp-dot"></div>
+        <div class="exp-meta">
+          <div class="exp-period">May 2021 – Oct 2023</div>
+          <div class="exp-company-tag">Bengaluru</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-company">6sense</div>
+          <div class="exp-role">DATA SCIENTIST  ·  INTERN → FULL-TIME</div>
+          <ul class="exp-bullets">
+            <li><strong>Logo-similarity microservice</strong> — embedding-based CV deployed on AWS S3 + Hive; 400M+ comparisons/run, 900k backlog records, SLA-bound to fortnightly Fortune 500 data deliveries; 4% false-positive reduction at millions-of-detections scale</li>
+            <li>Contributed to <strong>Togylop</strong> — 6sense's internal NLP training library (BERT/RoBERTa multi-class, multi-label, token classification); listed as library maintainer</li>
+            <li>Scaled <strong>B2B intent taxonomy 57 → 198 divisions</strong> (12 → 15 functions) via supervised entity classification; signals consumed by Fortune 500 ABM workflows</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Computer Vision</span><span class="exp-tag">BERT/RoBERTa</span><span class="exp-tag">AWS S3</span>
+            <span class="exp-tag">Apache Hive</span><span class="exp-tag">NLP</span><span class="exp-tag">B2B Intelligence</span>
+          </div>
+          <button class="exp-toggle" onclick="toggleExp('exp-6s')">
+            <span class="arrow">▶</span> <span class="toggle-label">Show details</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJECTS ────────────────────────────────────────────────────────────── -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label reveal">Selected work</div>
+    <h2 class="section-title reveal">Systems I've<br><em>architected.</em></h2>
+
+    <div class="projects-grid">
+      <!-- KotiLabs featured -->
+      <div class="project-card featured reveal">
+        <div>
+          <div class="project-eyebrow">KotiLabs · 2025–Present</div>
+          <div class="project-name">Aagman AI — SEBI-Compliant Agentic Trading Platform</div>
+          <p class="project-desc">
+            A full 0→1 system that takes a user's voice command ("Buy Tata Steel if it breaks VWAP") through intent classification, LLM planning, compliance validation, strategy backtesting, and live broker execution — with zero hallucination risk at any step. Built to meet SEBI's April 2026 algorithmic trading circular.
+          </p>
+          <div class="project-metrics">
+            <div class="proj-metric">
+              <div class="proj-metric-val">&gt;10×</div>
+              <div class="proj-metric-label">screener throughput vs sequential baseline</div>
+            </div>
+            <div class="proj-metric">
+              <div class="proj-metric-val">&gt;90%</div>
+              <div class="proj-metric-label">LLM inference calls eliminated via semantic cache</div>
+            </div>
+            <div class="proj-metric">
+              <div class="proj-metric-val">0</div>
+              <div class="proj-metric-label">hallucination-induced regulatory breaches via OPA</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="arch-diagram">
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin-bottom:12px;letter-spacing:0.1em">SYSTEM ARCHITECTURE</div>
+            <div class="arch-layer"><span class="arch-layer-num">L1</span> User Surface — Next.js · React Native · Voice</div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-layer"><span class="arch-layer-num">L2</span> Mastra AI Orchestrator · RAG Memory · pgvector</div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-layer"><span class="arch-layer-num">L3</span> JSON DSL Compiler · Execution Engine · Explainability</div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-layer"><span class="arch-layer-num">L4</span> Multi-Broker Adapters — Zerodha · Groww · Upstox</div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-layer" style="border-color:var(--amber-dim);color:var(--amber)"><span class="arch-layer-num">L5</span> OPA / Rego Compliance Firewall — SEBI rules</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cars24 N1 -->
+      <div class="project-card reveal">
+        <div class="project-eyebrow">Cars24 · 2024</div>
+        <div class="project-name">N1 User-Level Personalization Engine</div>
+        <p class="project-desc">
+          Replaced a 25-cohort recommendation system with individual user-level rankings using GBDT-based affinity scoring and collaborative filtering. First system on the platform to serve personalized recommendations to zero-click users.
+        </p>
+        <div class="project-metrics">
+          <div class="proj-metric">
+            <div class="proj-metric-val">+150%</div>
+            <div class="proj-metric-label">Click Recall@50 — 12% → 30%</div>
+          </div>
+          <div class="proj-metric">
+            <div class="proj-metric-val">+8%</div>
+            <div class="proj-metric-label">U2BI (User-to-Buyer Intent) uplift</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FSP Pricing -->
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-eyebrow">Cars24 · 2024–2025</div>
+        <div class="project-name">Final Selling Price Prediction Model</div>
+        <p class="project-desc">
+          Supervised regression model using vehicle fingerprint, demand/supply signals, market science, and LLM-extracted inspection quality scores to predict optimal listing price.
+        </p>
+        <div class="project-metrics">
+          <div class="proj-metric">
+            <div class="proj-metric-val">70%</div>
+            <div class="proj-metric-label">Predictions within ±5% of actual sale price</div>
+          </div>
+          <div class="proj-metric">
+            <div class="proj-metric-val">60%</div>
+            <div class="proj-metric-label">Inventory coverage at appointment level</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ──────────────────────────────────────────────────────────────── -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label reveal">Capabilities</div>
+    <h2 class="section-title reveal">What I work<br><em>with.</em></h2>
+    <div class="skills-groups reveal">
+      <div class="skill-group">
+        <div class="skill-group-name">ML & Modeling</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Ranking Systems</span>
+          <span class="skill-chip">Personalization</span>
+          <span class="skill-chip">GBDT / LightGBM</span>
+          <span class="skill-chip">LambdaMART</span>
+          <span class="skill-chip">Collaborative Filtering</span>
+          <span class="skill-chip">Two-Tower Retrieval</span>
+          <span class="skill-chip">Pricing Models</span>
+          <span class="skill-chip">A/B Testing</span>
+          <span class="skill-chip">Recall@K · NDCG</span>
+          <span class="skill-chip">Uplift Modeling</span>
+          <span class="skill-chip">Cold-Start Solutions</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Agentic AI & LLMs</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Multi-Agent Orchestration</span>
+          <span class="skill-chip">RAG (Hybrid BM25 + HNSW)</span>
+          <span class="skill-chip">LoRA / PEFT</span>
+          <span class="skill-chip">LLM Evaluation (RAGAS)</span>
+          <span class="skill-chip">Intent Classification</span>
+          <span class="skill-chip">Semantic Caching</span>
+          <span class="skill-chip">pgvector</span>
+          <span class="skill-chip">Mastra AI</span>
+          <span class="skill-chip">Prompt Engineering</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Compliance & Systems</div>
+        <div class="skill-chips">
+          <span class="skill-chip">OPA / Rego</span>
+          <span class="skill-chip">JSON DSL Compilers</span>
+          <span class="skill-chip">SEBI Regulations</span>
+          <span class="skill-chip">Sandbox Isolation</span>
+          <span class="skill-chip">Feature Stores</span>
+          <span class="skill-chip">PSI Drift Monitoring</span>
+          <span class="skill-chip">Deterministic Execution</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Data Engineering</div>
+        <div class="skill-chips">
+          <span class="skill-chip">ClickHouse</span>
+          <span class="skill-chip">TimescaleDB</span>
+          <span class="skill-chip">PostgreSQL</span>
+          <span class="skill-chip">Redis</span>
+          <span class="skill-chip">Snowflake</span>
+          <span class="skill-chip">AWS S3 · Apache Hive</span>
+          <span class="skill-chip">Parquet</span>
+          <span class="skill-chip">WebSocket Pipelines</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">NLP & Research</div>
+        <div class="skill-chips">
+          <span class="skill-chip">BERT / RoBERTa</span>
+          <span class="skill-chip">Legal-BERT</span>
+          <span class="skill-chip">Domain Adaptation</span>
+          <span class="skill-chip">Multi-class Classification</span>
+          <span class="skill-chip">Token Classification</span>
+          <span class="skill-chip">Hugging Face</span>
+          <span class="skill-chip">PyTorch</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Languages & Tools</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">SQL</span>
+          <span class="skill-chip">FastAPI</span>
+          <span class="skill-chip">VectorBT</span>
+          <span class="skill-chip">TA-Lib</span>
+          <span class="skill-chip">Scikit-learn</span>
+          <span class="skill-chip">Docker</span>
+          <span class="skill-chip">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESEARCH ────────────────────────────────────────────────────────────── -->
+<section id="research" style="background:var(--surface);border-top:1px solid var(--border)">
+  <div class="container">
+    <div class="section-label reveal">Publication</div>
+    <h2 class="section-title reveal">Research that<br><em>ships.</em></h2>
+    <p class="section-sub reveal">My M.Tech thesis on domain-specific transformer adaptation for legal NLP — the same principle I apply in production today.</p>
+
+    <div class="paper-card reveal">
+      <div>
+        <div class="paper-venue">JURISIN 2022 Workshop · JSAI International Symposium on AI · Published: Springer LNAI 2025</div>
+        <div class="paper-title">"Comparative Study of BERT and Legal-BERT for Predicting Indian Legal Case Judgements"</div>
+        <div class="paper-meta">1st Author · 2 faculty co-authors · Peer-reviewed workshop proceedings</div>
+        <p class="paper-abstract">
+          Demonstrated that domain-specific pre-training (Legal-BERT) substantially outperforms general BERT on Indian legal case judgment prediction tasks. Established a benchmark for domain-adapted transformer models in legal NLP, validating the intrinsic dimensionality hypothesis: domain-specific adaptations occupy a low-rank subspace of the weight space — the same principle behind LoRA fine-tuning, which I apply at KotiLabs for intent classification.
+        </p>
+      </div>
+      <div class="paper-links">
+        <a href="https://github.com/stelios357/Predicting-Indian-Legal-Case-Judgements" target="_blank" class="paper-link">
+          GitHub ↗
+        </a>
+        <a href="https://link.springer.com/book/9789819631964" target="_blank" class="paper-link">
+          Springer LNAI ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ─────────────────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label reveal">Contact</div>
+        <h2 class="section-title reveal">Let's talk<br><em>about ML.</em></h2>
+        <p class="section-sub reveal" style="margin-bottom:32px">
+          I'm actively looking for Senior DS, MLE, and Applied Scientist roles. I respond to well-matched opportunities within 24 hours.
+        </p>
+        <div class="contact-status reveal">
+          <div class="status-dot"></div>
+          Open to opportunities · Immediate to 4 weeks
+        </div>
+        <div class="hero-ctas reveal">
+          <a href="mailto:amanj3335@gmail.com" class="btn-primary">Send an email →</a>
+          <a href="https://linkedin.com/in/stelios357" target="_blank" class="btn-secondary">LinkedIn ↗</a>
+        </div>
+      </div>
+      <div class="contact-info reveal reveal-delay-1">
+        <div class="contact-row">
+          <div class="contact-row-label">Email</div>
+          <div class="contact-row-val"><a href="mailto:amanj3335@gmail.com">amanj3335@gmail.com</a></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-row-label">Phone</div>
+          <div class="contact-row-val">+91 876 912 8326</div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-row-label">LinkedIn</div>
+          <div class="contact-row-val"><a href="https://linkedin.com/in/stelios357" target="_blank">linkedin.com/in/stelios357</a></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-row-label">GitHub</div>
+          <div class="contact-row-val"><a href="https://github.com/stelios357" target="_blank">github.com/stelios357</a></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-row-label">Location</div>
+          <div class="contact-row-val">Bengaluru · Open to all metros + remote</div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-row-label">Targeting</div>
+          <div class="contact-row-val" style="font-size:12px">₹55–90 LPA · FAANG ₹85–105 LPA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-copy">© 2026 Aman Jain · amanjain.codes</div>
+    <div class="footer-links">
+      <a href="mailto:amanj3335@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/stelios357" target="_blank">LinkedIn</a>
+      <a href="https://github.com/stelios357" target="_blank">GitHub</a>
+      <a href="https://github.com/stelios357/Predicting-Indian-Legal-Case-Judgements" target="_blank">Research</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ─────────────────────────────────────────────────────────────── -->
+<script>
+// ── Cursor ─────────────────────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+document.querySelectorAll('a, button, .metric-card, .skill-chip, .arch-layer').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '16px'; cursor.style.height = '16px';
+    ring.style.width = '48px'; ring.style.height = '48px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '8px'; cursor.style.height = '8px';
+    ring.style.width = '32px'; ring.style.height = '32px';
+  });
+});
+
+// ── Nav scroll ─────────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ── Typewriter ─────────────────────────────────────────────────────────────
+const roles = [
+  'Senior Data Scientist',
+  'ML Engineer',
+  'Applied Scientist',
+  'Ranking & Personalization',
+  'Agentic AI Builder',
+];
+let ri = 0, ci = 0, del = false;
+const roleEl = document.getElementById('role-text');
+function typewrite() {
+  const cur = roles[ri];
+  if (!del) {
+    roleEl.textContent = cur.slice(0, ci + 1);
+    ci++;
+    if (ci === cur.length) { del = true; setTimeout(typewrite, 2200); return; }
+    setTimeout(typewrite, 70);
+  } else {
+    roleEl.textContent = cur.slice(0, ci - 1);
+    ci--;
+    if (ci === 0) { del = false; ri = (ri + 1) % roles.length; }
+    setTimeout(typewrite, 35);
+  }
+}
+setTimeout(typewrite, 600);
+
+// ── Reveal on scroll ───────────────────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      if (e.target.classList.contains('metric-card')) countUp(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.metric-card').forEach(el => observer.observe(el));
+
+// ── Counter animation ─────────────────────────────────────────────────────
+function countUp(card) {
+  const counter = card.querySelector('.counter');
+  if (!counter || counter.dataset.counted) return;
+  counter.dataset.counted = '1';
+  const target = parseInt(counter.dataset.target);
+  const duration = 1800;
+  const start = performance.now();
+  function frame(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = p < 0.5 ? 2*p*p : -1+(4-2*p)*p;
+    counter.textContent = Math.round(ease * target);
+    if (p < 1) requestAnimationFrame(frame);
+    else counter.textContent = target;
+  }
+  requestAnimationFrame(frame);
+}
+
+// ── Experience expand ──────────────────────────────────────────────────────
+function toggleExp(id) {
+  const item = document.getElementById(id);
+  const isOpen = item.classList.contains('open');
+  const label = item.querySelector('.toggle-label');
+  item.classList.toggle('open', !isOpen);
+  item.classList.toggle('active', true);
+  label.textContent = isOpen ? 'Show details' : 'Hide details';
+}
+
+// ── Hero architecture animation ────────────────────────────────────────────
+const nodeIds = ['n-user','n-router','n-opa','n-dsl','n-bt','n-db','n-exec','n-rag','n-sebi'];
+let activeNode = 0;
+function animNodes() {
+  nodeIds.forEach((id, i) => {
+    document.getElementById(id)?.classList.toggle('active', i === activeNode);
+  });
+  activeNode = (activeNode + 1) % nodeIds.length;
+}
+setInterval(animNodes, 900);
+
+// ── Draw SVG connectors for hero diagram ──────────────────────────────────
+function drawConnectors() {
+  const svg = document.getElementById('arch-svg');
+  const wrapper = document.getElementById('arch-nodes');
+  if (!svg || !wrapper) return;
+  const edges = [
+    ['n-user','n-router'],['n-user','n-opa'],
+    ['n-router','n-dsl'],['n-opa','n-exec'],
+    ['n-dsl','n-bt'],['n-dsl','n-db'],
+    ['n-bt','n-exec'],['n-db','n-rag'],
+    ['n-exec','n-sebi'],['n-rag','n-sebi']
+  ];
+  svg.innerHTML = '';
+  const rect = wrapper.getBoundingClientRect();
+  edges.forEach(([a, b]) => {
+    const ea = document.getElementById(a)?.getBoundingClientRect();
+    const eb = document.getElementById(b)?.getBoundingClientRect();
+    if (!ea || !eb) return;
+    const x1 = ea.left - rect.left + ea.width/2;
+    const y1 = ea.top  - rect.top  + ea.height/2;
+    const x2 = eb.left - rect.left + eb.width/2;
+    const y2 = eb.top  - rect.top  + eb.height/2;
+    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+    line.setAttribute('stroke', 'rgba(30,40,64,0.8)');
+    line.setAttribute('stroke-width', '1');
+    svg.appendChild(line);
+  });
+}
+window.addEventListener('load', drawConnectors);
+window.addEventListener('resize', drawConnectors);
+</script>
+</body>
+</html>
