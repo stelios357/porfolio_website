@@ -855,7 +855,7 @@ section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
-  align-items: center;
+  align-items: start;
   padding: 80px 0;
 }
 .contact-info {
@@ -995,7 +995,7 @@ footer {
       <li><a href="#research">Research</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button onclick="document.getElementById('contactForm').scrollIntoView({behavior: 'smooth'});" class="nav-cta" style="background:none;border:none;cursor:pointer;padding:0;font:inherit;">Get in touch →</button>
+    <a href="#contact" class="nav-cta">Get in touch →</a>
   </div>
 </nav>
 
@@ -1011,7 +1011,7 @@ footer {
         </div>
         <p class="hero-desc">
           I build ML systems that move metrics at scale —
-          <strong>ranking, personalization, and pricing</strong> for 100k+ monthly users at Cars24,
+          <strong>ranking, personalization, and pricing</strong> for 1M+ monthly users at Cars24,
           and <strong>India's first SEBI-compliant agentic trading platform</strong> at KotiLabs.
           4+ years across marketplaces, fintech, and AI products.
         </p>
@@ -1105,7 +1105,7 @@ footer {
       </div>
       <div class="metric-card reveal">
         <div class="metric-number">
-          <span class="counter" data-target="70">0</span><span class="suffix">%</span>
+          <span class="counter" data-target="90">0</span><span class="suffix">%</span>
         </div>
         <div class="metric-label">FSP predictions within ±5% of sale price</div>
         <div class="metric-context">LLM-structured inspection features · 60% inventory coverage</div>
@@ -1121,11 +1121,11 @@ footer {
       </div>
       <div class="metric-card reveal reveal-delay-2">
         <div class="metric-number">
-          <span class="counter" data-target="9">0</span>
+          <span class="counter" data-target="90">0</span><span>%</span>
         </div>
-        <div class="metric-label">Production ML models migrated to GA4</div>
-        <div class="metric-context">Zero downtime · Full data integrity · Shadow-mode validation</div>
-        <div class="metric-source">Cars24 · GA4 Migration</div>
+        <div class="metric-label">LLM inference cost reduction</div>
+        <div class="metric-context">Multi-layered RAG memory (pgvector + PostgreSQL) + fine-tuned Llama-3-8B intent router with Redis semantic cache</div>
+        <div class="metric-source">KotiLabs · Trading Platform</div>
       </div>
     </div>
   </div>
@@ -1155,6 +1155,7 @@ footer {
             <li>Built <strong>VectorBT-backed backtesting engine</strong> with golden test suites verifying exact trade counts, timestamps, and metrics across all executions — deterministic by design</li>
             <li>Engineered <strong>vectorized batch screener</strong> processing 500+ instruments per run at &gt;10× sequential throughput; real-time ClickHouse + TimescaleDB ingestion pipeline with multi-broker adapters (Zerodha, Groww, Angel One, Upstox)</li>
             <li>Designed <strong>HNSW-indexed RAG memory</strong> (pgvector) with hybrid BM25 + dense retrieval; intent router (distilled Llama-3 8B + Redis semantic cache) reduces full LLM calls by &gt;90%</li>
+            <li><strong>Mentored 2 engineers</strong> on deterministic execution design, OPA policy authoring, and CI/golden-test methodology</li>
           </ul>
           <div class="exp-tags">
             <span class="exp-tag">Python</span><span class="exp-tag">OPA/Rego</span><span class="exp-tag">ClickHouse</span>
@@ -1183,6 +1184,7 @@ footer {
             <li><strong>FSP pricing model</strong> — vehicle fingerprint + demand/supply + LLM-structured inspection data; ~70% predictions within ±5% of actual sale price; multi-dimensional OOT evaluation framework</li>
             <li><strong>Similar Cars hybrid recommendation</strong> (70:30 collab:content) — +6% impressions, +12% SimilarCar U2Bi; resolved exploration-vs-exploitation tradeoff</li>
             <li>Migrated <strong>9 DS models</strong> to GA4 with zero downtime; owned cross-geo DS for UAE, Thailand, and Australia simultaneously</li>
+            <li><strong>Mentored 2 junior analysts</strong> on SQL-based A/B test validation, out-of-time evaluation methodology, and ML pipeline best practices</li>
           </ul>
           <div class="exp-tags">
             <span class="exp-tag">GBDT</span><span class="exp-tag">LightGBM</span><span class="exp-tag">Collaborative Filtering</span>
@@ -1215,6 +1217,28 @@ footer {
             <span class="exp-tag">Apache Hive</span><span class="exp-tag">NLP</span><span class="exp-tag">B2B Intelligence</span>
           </div>
           <button class="exp-toggle" onclick="toggleExp('exp-6s')">
+            <span class="arrow">▶</span> <span class="toggle-label">Show details</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Ministry of Science & Technology -->
+      <div class="exp-item" id="exp-most">
+        <div class="exp-dot"></div>
+        <div class="exp-meta">
+          <div class="exp-period">Dec 2021 – May 2023</div>
+          <div class="exp-company-tag">New Delhi</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-company">Ministry of Science & Technology, Government of India</div>
+          <div class="exp-role">DATA ANALYST</div>
+          <ul class="exp-bullets">
+            <li><strong>Built automated ETL pipelines</strong> and <strong>analytics dashboards for policy monitoring</strong>, consolidating multi-source departmental datasets into standardised reports for senior government officials.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">ETL</span><span class="exp-tag">Data Analytics</span><span class="exp-tag">Policy Monitoring</span>
+          </div>
+          <button class="exp-toggle" onclick="toggleExp('exp-most')">
             <span class="arrow">▶</span> <span class="toggle-label">Show details</span>
           </button>
         </div>
@@ -1265,7 +1289,7 @@ footer {
             <div class="arch-arrow">↓</div>
             <div class="arch-layer"><span class="arch-layer-num">L4</span> Multi-Broker Adapters — Zerodha · Groww · Upstox</div>
             <div class="arch-arrow">↓</div>
-            <div class="arch-layer" style="border-color:var(--amber-dim);color:var(--amber)"><span class="arch-layer-num">L5</span> OPA / Rego Compliance Firewall — SEBI rules</div>
+            <div class="arch-layer"><span class="arch-layer-num">L5</span> OPA / Rego Compliance Firewall — SEBI rules</div>
           </div>
         </div>
       </div>
@@ -1332,6 +1356,8 @@ footer {
           <span class="skill-chip">Recall@K · NDCG</span>
           <span class="skill-chip">Uplift Modeling</span>
           <span class="skill-chip">Cold-Start Solutions</span>
+          <span class="skill-chip">Causal Inference</span>
+          <span class="skill-chip">Training-Serving Skew</span>
         </div>
       </div>
       <div class="skill-group">
@@ -1346,6 +1372,8 @@ footer {
           <span class="skill-chip">pgvector</span>
           <span class="skill-chip">Mastra AI</span>
           <span class="skill-chip">Prompt Engineering</span>
+          <span class="skill-chip">Hallucination Prevention</span>
+          <span class="skill-chip">Transformer Fine-tuning</span>
         </div>
       </div>
       <div class="skill-group">
@@ -1391,11 +1419,24 @@ footer {
           <span class="skill-chip">Python</span>
           <span class="skill-chip">SQL</span>
           <span class="skill-chip">FastAPI</span>
+          <span class="skill-chip">LightGBM</span>
+          <span class="skill-chip">PyTorch</span>
           <span class="skill-chip">VectorBT</span>
           <span class="skill-chip">TA-Lib</span>
           <span class="skill-chip">Scikit-learn</span>
           <span class="skill-chip">Docker</span>
           <span class="skill-chip">Git</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Experimentation & Validation</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Out-of-Time Validation</span>
+          <span class="skill-chip">User-Level A/B Splits</span>
+          <span class="skill-chip">Power Analysis</span>
+          <span class="skill-chip">Bayesian A/B Testing</span>
+          <span class="skill-chip">MTC Correction</span>
+          <span class="skill-chip">SRM Detection</span>
         </div>
       </div>
     </div>
@@ -1445,7 +1486,7 @@ footer {
           Open to opportunities · Immediate to 4 weeks
         </div>
         <div class="hero-ctas reveal">
-          <button onclick="document.getElementById('contactForm').scrollIntoView({behavior: 'smooth'});" class="btn-primary" style="background:none;border:none;cursor:pointer;padding:12px 24px;font:inherit;">Send an email →</button>
+          <a href="#contact" class="btn-primary">Send an email →</a>
           <a href="https://linkedin.com/in/stelios357" target="_blank" class="btn-secondary">LinkedIn ↗</a>
         </div>
       </div>
@@ -1469,10 +1510,6 @@ footer {
         <div class="contact-row">
           <div class="contact-row-label">Location</div>
           <div class="contact-row-val">Bengaluru · Open to all metros + remote</div>
-        </div>
-        <div class="contact-row">
-          <div class="contact-row-label">Targeting</div>
-          <div class="contact-row-val" style="font-size:12px">₹55–90 LPA · FAANG ₹85–105 LPA</div>
         </div>
       </div>
     </div>
@@ -1549,7 +1586,7 @@ footer {
   <div class="container footer-inner">
     <div class="footer-copy">© 2026 Aman Jain · amanjain.codes</div>
     <div class="footer-links">
-      <button onclick="document.getElementById('contactForm').scrollIntoView({behavior: 'smooth'});" style="background:none;border:none;cursor:pointer;padding:0;font:inherit;color:var(--amber);">Email</button>
+      <a href="#contact">Email</a>
       <a href="https://linkedin.com/in/stelios357" target="_blank">LinkedIn</a>
       <a href="https://github.com/stelios357" target="_blank">GitHub</a>
       <a href="https://github.com/stelios357/Predicting-Indian-Legal-Case-Judgements" target="_blank">Research</a>
@@ -1736,12 +1773,15 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   });
 });
 
-// Show form when button is clicked
-document.querySelectorAll('button[onclick*="contactForm"]').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    if (this.getAttribute('onclick').includes('scrollIntoView')) {
-      document.getElementById('contactInfo').style.display = 'none';
-      document.getElementById('contactForm').style.display = 'block';
+// Show form when contact links are clicked
+document.querySelectorAll('a[href="#contact"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const form = document.getElementById('contactForm');
+    const contactInfo = document.getElementById('contactInfo');
+    if (form && contactInfo) {
+      form.style.display = 'block';
+      contactInfo.style.display = 'none';
+      setTimeout(() => form.scrollIntoView({behavior: 'smooth'}), 0);
     }
   });
 });
