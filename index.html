@@ -942,6 +942,30 @@ footer {
 }
 .footer-links a:hover { color: var(--amber); opacity: 1; }
 
+/* ── Back to top ───────────────────────────────────────────────────────────── */
+.back-to-top {
+  position: fixed;
+  bottom: 24px; right: 32px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--amber);
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s, border-color 0.2s;
+  z-index: 50;
+}
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+.back-to-top:hover {
+  border-color: var(--amber);
+}
+
 /* ── REVEAL ANIMATION ─────────────────────────────────────────────────────── */
 .reveal {
   opacity: 0;
@@ -996,7 +1020,7 @@ footer {
 <!-- ── NAV ────────────────────────────────────────────────────────────────── -->
 <nav id="nav">
   <div class="container nav-inner">
-    <div class="nav-logo">AJ<span>.codes</span></div>
+    <a href="#" class="nav-logo" id="nav-logo">AJ<span>.codes</span></a>
     <ul class="nav-links">
       <li><a href="#impact">Impact</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -1613,6 +1637,8 @@ footer {
   </div>
 </section>
 
+<button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
 <!-- ── FOOTER ──────────────────────────────────────────────────────────────── -->
 <footer>
   <div class="container footer-inner">
@@ -1654,9 +1680,18 @@ document.querySelectorAll('a, button, .metric-card, .skill-chip, .arch-layer').f
   });
 });
 
-// ── Nav scroll ─────────────────────────────────────────────────────────────
+// ── Nav scroll & back to top ───────────────────────────────────────────────
+const backToTop = document.getElementById('back-to-top');
+document.getElementById('nav-logo')?.addEventListener('click', e => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+  backToTop?.classList.toggle('visible', window.scrollY > 400);
+});
+backToTop?.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // ── Typewriter ─────────────────────────────────────────────────────────────
