@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aman Jain — Data Scientist · ML Engineer · Applied Scientist</title>
-<meta name="description" content="Senior Data Scientist and ML Engineer. Built ranking, personalization, and pricing systems at 100k+ user scale. Architected India's first SEBI-compliant agentic trading platform. Published NLP researcher.">
-<meta property="og:title" content="Aman Jain — ML Engineer & Data Scientist">
-<meta property="og:description" content="Ranking · Personalization · Agentic AI · Published Researcher">
+<title>Aman Jain — Applied Scientist · AI Engineer · ML Engineer</title>
+<meta name="description" content="Applied Scientist & AI Engineer. Built ranking and personalization systems at 1M+ monthly sessions at Cars24 (+150% Click Recall). Architected India's first SEBI-compliant agentic trading platform. Published Springer LNAI researcher.">
+<meta property="og:title" content="Aman Jain — Applied Scientist · AI Engineer">
+<meta property="og:description" content="Ranking · Personalization · Agentic AI · SEBI-Compliant Trading · Published Researcher">
 <meta property="og:url" content="https://amanjain.codes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -609,6 +609,18 @@ section {
 }
 .exp-item.open .exp-toggle .arrow { transform: rotate(90deg); }
 
+@keyframes expToggleNudge {
+  0%, 100% {
+    color: var(--text-dim);
+  }
+  50% {
+    color: var(--amber);
+  }
+}
+.exp-toggle.exp-nudge {
+  animation: expToggleNudge 2s ease-in-out infinite;
+}
+
 /* ── PROJECTS ─────────────────────────────────────────────────────────────── */
 #projects { background: var(--surface); border-top: 1px solid var(--border); }
 
@@ -1038,7 +1050,7 @@ footer {
   <div class="container">
     <div class="hero-grid">
       <div>
-        <div class="hero-eyebrow">Available for Senior DS · MLE · Applied Scientist roles</div>
+        <div class="hero-eyebrow">Applied Scientist · AI Engineer · MLE · Founding Engineer roles</div>
         <h1 class="hero-name">Aman<br><em>Jain.</em></h1>
         <div class="hero-roles">
           <span style="color:var(--text-dim)">_ </span><span id="role-text"></span><span id="cursor-blink"></span>
@@ -1047,14 +1059,14 @@ footer {
           I build ML systems that move metrics at scale —
           <strong>ranking, personalization, and pricing</strong> for 1M+ monthly users at Cars24,
           and <strong>India's first SEBI-compliant agentic trading platform</strong> at KotiLabs.
-          4+ years across marketplaces, fintech, and AI products.
+          4+ years across marketplaces, fintech, and AI products. Open to FAANG and high-growth startups.
         </p>
         <div class="hero-ctas">
           <a href="#projects" class="btn-primary">View my work ↓</a>
           <a href="#contact" class="btn-secondary">Contact me</a>
         </div>
         <div class="hero-badge-row">
-          <span class="hero-badge">B.Tech + M.Tech CSE · LNMIT</span>
+          <span class="hero-badge">B.Tech + M.Tech CSE · LNMIT · SPI 9.25</span>
           <span class="hero-badge">Published · JURISIN 2022 · Springer LNAI</span>
         </div>
       </div>
@@ -1141,7 +1153,7 @@ footer {
           <span class="counter" data-target="90">0</span><span class="suffix">%</span>
         </div>
         <div class="metric-label">FSP predictions within ±5% of sale price</div>
-        <div class="metric-context">LLM-structured inspection features · 60% inventory coverage</div>
+        <div class="metric-context">LLM-structured inspection features · 60% inventory coverage · ~90% within ±5%</div>
         <div class="metric-source">Cars24 · Pricing Model</div>
       </div>
       <div class="metric-card reveal reveal-delay-1">
@@ -1159,6 +1171,14 @@ footer {
         <div class="metric-label">LLM inference cost reduction</div>
         <div class="metric-context">Multi-layered RAG memory (pgvector + PostgreSQL) + fine-tuned Llama-3-8B intent router with Redis semantic cache</div>
         <div class="metric-source">KotiLabs · Trading Platform</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-1">
+        <div class="metric-number">
+          <span class="prefix">+</span><span class="counter" data-target="16">0</span><span class="suffix">%</span>
+        </div>
+        <div class="metric-label">Buyer conversion uplift</div>
+        <div class="metric-context">Live A/B · &lt;100ms p99 serving latency</div>
+        <div class="metric-source">Cars24 · Default Ranking</div>
       </div>
     </div>
   </div>
@@ -1181,14 +1201,14 @@ footer {
         </div>
         <div class="exp-content">
           <div class="exp-company">KotiLabs</div>
-          <div class="exp-company-context">Pre-seed · 8-person team · SEBI-registered algo trading startup</div>
-          <div class="exp-role">FOUNDING ENGINEER — AAGMAN AI</div>
+          <div class="exp-company-context">Pre-seed · 10-person team · SEBI-registered algo trading startup</div>
+          <div class="exp-role">FOUNDING AI ENGINEER — AAGMAN AI</div>
           <ul class="exp-bullets">
             <li>Architected a <strong>5-layer neuro-symbolic trading platform (0→1)</strong> — SEBI April 2026 compliant: LLM planning (Mastra AI) + deterministic OPA/Rego policy enforcement, guaranteeing zero hallucination-induced regulatory breach</li>
             <li>Designed a <strong>JSON DSL compiler</strong> as a safe LLM output format — AI selects building blocks, interpreter executes them; eliminates arbitrary code execution and prompt injection risk in financial execution</li>
             <li>Built <strong>VectorBT-backed backtesting engine</strong> with golden test suites verifying exact trade counts, timestamps, and metrics across all executions — deterministic by design</li>
             <li>Engineered <strong>vectorized batch screener</strong> processing 500+ instruments per run at &gt;10× sequential throughput; real-time ClickHouse + TimescaleDB ingestion pipeline with multi-broker adapters (Zerodha, Groww, Angel One, Upstox)</li>
-            <li>Designed <strong>HNSW-indexed RAG memory</strong> (pgvector) with hybrid BM25 + dense retrieval; intent router (distilled Llama-3 8B + Redis semantic cache) reduces full LLM calls by &gt;90%</li>
+            <li>Designed <strong>HNSW-indexed RAG memory</strong> (pgvector) with hybrid BM25 + dense retrieval; intent router (distilled Llama-3 8B + Redis semantic cache) reduces full LLM calls by &gt;90%, cutting per-query cost from $0.10 → $0.01</li>
             <li><strong>Mentored 2 engineers</strong> on deterministic execution design, OPA policy authoring, and CI/golden-test methodology</li>
           </ul>
           <div class="exp-tags">
@@ -1213,10 +1233,11 @@ footer {
           <div class="exp-company">Cars24</div>
           <div class="exp-role">DATA SCIENTIST — RANKING, PERSONALIZATION & PRICING</div>
           <ul class="exp-bullets">
-            <li><strong>N1 user-level personalization</strong> — replaced 25-cohort system; +150% Click Recall@50, +8% U2BI uplift across 100k+ monthly sessions; solved cold-start for zero-click users (35% of base) via implicit search/filter signals</li>
-            <li><strong>GBDT Default Sort V2</strong> — dynamic de-boosting of underperforming inventory; +21% V2Bi uplift (top-5 deciles); out-of-time validated + live A/B confirmed; PSI monitoring for ongoing drift detection</li>
+            <li><strong>N1 user-level personalization</strong> — replaced 25-cohort system; +150% Click Recall@50 (12%→30%), +16% buyer conversion uplift, &lt;100ms p99 serving latency — 1M+ monthly sessions; solved cold-start for zero-click users (35% of base) via implicit search/filter signals</li>
+            <li><strong>GBDT Default Sort V2</strong> — dynamic de-boosting of underperforming inventory; +21% V2Bi uplift (top-5 deciles), +7% clicks per vehicle; out-of-time validated + live A/B confirmed; PSI monitoring for ongoing drift detection</li>
             <li><strong>FSP pricing model</strong> — vehicle fingerprint + demand/supply + LLM-structured inspection data; ~70% predictions within ±5% of actual sale price; multi-dimensional OOT evaluation framework</li>
             <li><strong>Similar Cars hybrid recommendation</strong> (70:30 collab:content) — +6% impressions, +12% SimilarCar U2Bi; resolved exploration-vs-exploitation tradeoff</li>
+            <li>Served recommendations at <strong>&lt;100ms p99 latency</strong> via Two-Tower retrieval model with HNSW ANN index; expanded personalised coverage from <strong>65% → 100%</strong> of user base</li>
             <li>Migrated <strong>9 DS models</strong> to GA4 with zero downtime; owned cross-geo DS for UAE, Thailand, and Australia simultaneously</li>
             <li><strong>Mentored 2 junior analysts</strong> on SQL-based A/B test validation, out-of-time evaluation methodology, and ML pipeline best practices</li>
           </ul>
@@ -1322,7 +1343,7 @@ footer {
             </div>
             <div class="proj-metric">
               <div class="proj-metric-val">&gt;90%</div>
-              <div class="proj-metric-label">LLM inference calls eliminated via semantic cache</div>
+              <div class="proj-metric-label">LLM calls eliminated · $0.10 → $0.01 per query</div>
             </div>
             <div class="proj-metric">
               <div class="proj-metric-val">0</div>
@@ -1348,10 +1369,10 @@ footer {
 
       <!-- Cars24 N1 -->
       <div class="project-card reveal">
-        <div class="project-eyebrow">Cars24 · 2024</div>
+        <div class="project-eyebrow">Cars24 · 2023–2025</div>
         <div class="project-name">N1 User-Level Personalization Engine</div>
         <p class="project-desc">
-          Replaced a 25-cohort recommendation system with individual user-level rankings using GBDT-based affinity scoring and collaborative filtering. First system on the platform to serve personalized recommendations to zero-click users.
+          Rebuilt the recommendation engine using a Two-Tower retrieval model with HNSW ANN index, replacing a 25-cohort system with individual user-level rankings at 1M+ monthly sessions. Solved cold-start for 35% of zero-click users via implicit search/filter signals — first time the platform achieved personalisation for this segment.
         </p>
         <div class="project-metrics">
           <div class="proj-metric">
@@ -1531,7 +1552,7 @@ footer {
         <div class="section-label reveal">Contact</div>
         <h2 class="section-title reveal">Let's talk<br><em>about ML.</em></h2>
         <p class="section-sub reveal" style="margin-bottom:32px">
-          I'm actively looking for Senior DS, MLE, and Applied Scientist roles. I respond to well-matched opportunities within 24 hours.
+          I'm actively looking for Applied Scientist, AI Engineer, MLE, and Senior DS roles — FAANG and high-growth startups both. I respond to well-matched opportunities within 24 hours.
         </p>
         <div class="contact-status reveal">
           <div class="status-dot"></div>
@@ -1682,6 +1703,7 @@ document.querySelectorAll('a, button, .metric-card, .skill-chip, .arch-layer').f
 
 // ── Nav scroll & back to top ───────────────────────────────────────────────
 const backToTop = document.getElementById('back-to-top');
+let expDetailsNudgeFired = false;
 document.getElementById('nav-logo')?.addEventListener('click', e => {
   e.preventDefault();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1689,16 +1711,23 @@ document.getElementById('nav-logo')?.addEventListener('click', e => {
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
   backToTop?.classList.toggle('visible', window.scrollY > 400);
-});
+  if (!expDetailsNudgeFired && window.scrollY > 60) {
+    expDetailsNudgeFired = true;
+    document.querySelectorAll('#exp-timeline .exp-toggle').forEach(btn => {
+      btn.classList.add('exp-nudge');
+    });
+  }
+}, { passive: true });
 backToTop?.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // ── Typewriter ─────────────────────────────────────────────────────────────
 const roles = [
-  'Senior Data Scientist',
-  'ML Engineer',
   'Applied Scientist',
+  'ML Engineer',
+  'AI Engineer',
+  'Founding AI Engineer',
   'Ranking & Personalization',
   'Agentic AI Builder',
 ];
@@ -1752,6 +1781,7 @@ function countUp(card) {
 
 // ── Experience expand ──────────────────────────────────────────────────────
 function toggleExp(id) {
+  document.querySelectorAll('.exp-toggle.exp-nudge').forEach(el => el.classList.remove('exp-nudge'));
   const item = document.getElementById(id);
   const isOpen = item.classList.contains('open');
   const label = item.querySelector('.toggle-label');
