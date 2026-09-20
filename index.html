@@ -8,6 +8,7 @@
 <meta property="og:title" content="Aman Jain — Applied Scientist · AI Engineer">
 <meta property="og:description" content="Ranking · Personalization · Agentic AI · SEBI-Compliant Trading · Published Researcher">
 <meta property="og:url" content="https://amanjain.codes">
+<link rel="canonical" href="https://amanjain.codes/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://amanjain.codes/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -67,6 +68,25 @@ html { scroll-behavior: smooth; }
   --max-w:       1120px;
   --nav-h:       64px;
 }
+
+/* ── LIGHT THEME ─────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:          #F5F5F0;
+  --surface:     #EEEEE8;
+  --surface-2:   #E5E5DF;
+  --surface-3:   #DDDDD7;
+  --border:      #D0D0C8;
+  --border-2:    #B8B8AE;
+  --text:        #1A1A2E;
+  --text-muted:  #4A4A5E;
+  --text-dim:    #8A8A9E;
+  --amber:       #C07820;
+  --amber-dim:   #D4A060;
+  --amber-glow:  rgba(192,120,32,0.10);
+  --teal:        #0E8A6E;
+  --teal-dim:    rgba(14,138,110,0.08);
+}
+[data-theme="light"] body::before { opacity: 0.08; }
 
 /* ── BASE ─────────────────────────────────────────────────────────────────── */
 body {
@@ -1071,6 +1091,101 @@ footer {
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 
+/* ── THEME TOGGLE ────────────────────────────────────────────────────────── */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border-2);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 16px;
+  transition: border-color 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover { border-color: var(--amber); color: var(--amber); }
+.theme-toggle .icon-sun  { display: none; }
+.theme-toggle .icon-moon { display: inline; }
+[data-theme="light"] .theme-toggle .icon-sun  { display: inline; }
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+/* ── NEWSLETTER ──────────────────────────────────────────────────────────── */
+.newsletter {
+  border-top: 1px solid var(--border);
+  padding: 48px 0;
+  text-align: center;
+}
+.newsletter-inner {
+  max-width: 480px;
+  margin: 0 auto;
+}
+.newsletter-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.newsletter-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+.newsletter-form {
+  display: flex;
+  gap: 8px;
+}
+.newsletter-form input {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+.newsletter-form input:focus { border-color: var(--amber); outline: none; }
+.newsletter-form button {
+  padding: 10px 20px;
+  background: var(--amber);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.newsletter-form button:hover { opacity: 0.85; }
+
+/* ── BOOK A CHAT ─────────────────────────────────────────────────────────── */
+.btn-calendly {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: 1px solid var(--teal);
+  color: var(--teal);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  border-radius: var(--radius);
+  transition: background 0.2s, color 0.2s;
+  background: var(--teal-dim);
+}
+.btn-calendly:hover {
+  background: var(--teal);
+  color: var(--bg);
+  opacity: 1;
+}
+
 /* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .hero-grid        { grid-template-columns: 1fr; gap: 40px; }
@@ -1116,6 +1231,9 @@ footer {
 }
 @media (max-width: 600px) {
   .metrics-grid { grid-template-columns: 1fr; }
+  .newsletter-form { flex-direction: column; }
+  .hero-ctas { flex-direction: column; }
+  .hero-ctas .btn-calendly { text-align: center; justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -1157,6 +1275,10 @@ footer {
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Get in touch →</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <span class="icon-moon">&#9790;</span>
+      <span class="icon-sun">&#9728;</span>
+    </button>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -1745,6 +1867,7 @@ footer {
         </p>
         <div class="hero-ctas reveal">
           <a href="#contactForm" class="btn-primary">Send an email →</a>
+          <a href="https://calendly.com/amanj3335/30min" target="_blank" rel="noopener noreferrer" class="btn-calendly">Book a chat ↗</a>
           <a href="https://linkedin.com/in/stelios357" target="_blank" class="btn-secondary">LinkedIn ↗</a>
         </div>
       </div>
@@ -1847,6 +1970,21 @@ footer {
 </section>
 
 <button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
+<!-- ── NEWSLETTER ─────────────────────────────────────────────────────────── -->
+<div class="newsletter">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="newsletter-title">Stay in the loop</div>
+      <p class="newsletter-sub">Occasional updates on projects, research, and what I'm building. No spam.</p>
+      <form class="newsletter-form" id="newsletterForm" action="https://formspree.io/f/mpqyklrp" method="POST">
+        <input type="hidden" name="_subject" value="Newsletter signup">
+        <input type="email" name="email" placeholder="your@email.com" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</div>
 
 <!-- ── FOOTER ──────────────────────────────────────────────────────────────── -->
 <footer>
@@ -2091,6 +2229,45 @@ navLinks?.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => {
     hamburger.classList.remove('active');
     navLinks.classList.remove('open');
+  });
+});
+
+// ── Theme toggle ──────────────────────────────────────────────────────────
+const themeToggle = document.getElementById('theme-toggle');
+function setTheme(theme) {
+  if (theme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  try { localStorage.setItem('theme', theme); } catch(e) {}
+}
+let savedTheme;
+try { savedTheme = localStorage.getItem('theme'); } catch(e) {}
+if (savedTheme) setTheme(savedTheme);
+themeToggle?.addEventListener('click', () => {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  setTheme(isLight ? 'dark' : 'light');
+});
+
+// ── Newsletter form ───────────────────────────────────────────────────────
+document.getElementById('newsletterForm')?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = this;
+  const btn = form.querySelector('button');
+  btn.textContent = 'Subscribing...';
+  btn.disabled = true;
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(r => {
+    if (r.ok) {
+      form.innerHTML = '<p style="color:var(--teal);font-family:var(--font-mono);font-size:13px;">Subscribed — thanks!</p>';
+    } else { throw new Error(); }
+  }).catch(() => {
+    btn.textContent = 'Error — retry?';
+    btn.disabled = false;
   });
 });
 </script>
