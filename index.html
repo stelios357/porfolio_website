@@ -8,6 +8,30 @@
 <meta property="og:title" content="Aman Jain — Applied Scientist · AI Engineer">
 <meta property="og:description" content="Ranking · Personalization · Agentic AI · SEBI-Compliant Trading · Published Researcher">
 <meta property="og:url" content="https://amanjain.codes">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://amanjain.codes/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aman Jain — Applied Scientist · AI Engineer">
+<meta name="twitter:description" content="Ranking · Personalization · Agentic AI · SEBI-Compliant Trading · Published Researcher">
+<meta name="twitter:image" content="https://amanjain.codes/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%23080C14'/><text x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-size='36' font-weight='600' fill='%23F0A030'>AJ</text></svg>">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Aman Jain",
+  "url": "https://amanjain.codes",
+  "jobTitle": "Applied Scientist / AI Engineer",
+  "sameAs": [
+    "https://linkedin.com/in/stelios357",
+    "https://github.com/stelios357"
+  ],
+  "knowsAbout": ["Machine Learning", "Ranking Systems", "Personalization", "Agentic AI", "LLMs"],
+  "alumniOf": "LNMIIT"
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -152,6 +176,26 @@ nav.scrolled {
   transition: background 0.2s, border-color 0.2s !important;
 }
 .nav-cta:hover { background: var(--amber-glow); border-color: var(--amber); opacity: 1 !important; }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 101;
+}
+.hamburger span {
+  width: 22px;
+  height: 2px;
+  background: var(--text-muted);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ── HERO ─────────────────────────────────────────────────────────────────── */
 #hero {
@@ -835,6 +879,11 @@ section {
   color: var(--amber);
   background: var(--amber-glow);
 }
+.skill-chip.primary {
+  border-color: var(--amber-dim);
+  color: var(--text);
+  background: rgba(240,160,48,0.08);
+}
 
 /* ── RESEARCH ─────────────────────────────────────────────────────────────── */
 .paper-card {
@@ -1032,15 +1081,51 @@ footer {
   .skills-groups    { grid-template-columns: 1fr; }
   .contact-grid     { grid-template-columns: 1fr; }
   .paper-card       { grid-template-columns: 1fr; }
-  .exp-item         { grid-template-columns: 1fr; }
-  .exp-item::before { display: none; }
-  .exp-dot          { display: none; }
+  .exp-item         { grid-template-columns: 1fr; padding-left: 20px; }
+  .exp-item::before {
+    left: 0;
+    top: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .exp-item:last-child::before { display: block; bottom: 50%; }
+  .exp-dot {
+    left: -6px;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+  }
   .exp-meta         { text-align: left; }
-  .nav-links        { display: none; }
+  .nav-links        {
+    display: none;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    background: rgba(8,12,20,0.97);
+    backdrop-filter: blur(12px);
+    flex-direction: column;
+    padding: 24px 32px;
+    gap: 20px;
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+  }
+  .nav-links.open   { display: flex; }
+  .hamburger        { display: flex; }
   .container        { padding: 0 20px; }
 }
 @media (max-width: 600px) {
   .metrics-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; }
 }
 </style>
 <script async src="https://cdn.vercel-analytics.com/v1/script.js"></script>
@@ -1072,6 +1157,9 @@ footer {
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Get in touch →</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -1216,43 +1304,11 @@ footer {
       </div>
       <div class="metric-card reveal reveal-delay-2">
         <div class="metric-number">
-          <span class="prefix">&lt;</span><span class="counter" data-target="100">0</span><span class="suffix">ms</span>
-        </div>
-        <div class="metric-label">p99 serving latency</div>
-        <div class="metric-context">Two-Tower + HNSW ANN retrieval · End-to-end recommendation pipeline</div>
-        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · Recommendation Serving</div>
-      </div>
-      <div class="metric-card reveal">
-        <div class="metric-number">
           <span style="font-size:28px">$0.10</span><span class="suffix" style="font-size:22px;color:var(--text-muted);margin:0 4px">→</span><span style="font-size:28px">$0.01</span>
         </div>
         <div class="metric-label">Per-query inference cost</div>
         <div class="metric-context">Two-tier routing: Redis semantic cache + SLM intent classifier · &gt;90% frontier calls eliminated</div>
         <div class="metric-source"><a href="https://www.aagman.ai/" target="_blank" rel="noopener noreferrer">KotiLabs</a> · Cost Optimisation</div>
-      </div>
-      <div class="metric-card reveal reveal-delay-1">
-        <div class="metric-number">
-          <span class="prefix">+</span><span class="counter" data-target="12">0</span><span class="suffix">%</span>
-        </div>
-        <div class="metric-label">SimilarCar U2Bi uplift</div>
-        <div class="metric-context">Hybrid recommender · 70:30 collab:content · exploration-exploitation balance</div>
-        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · Similar Cars</div>
-      </div>
-      <div class="metric-card reveal reveal-delay-2">
-        <div class="metric-number">
-          <span class="counter" data-target="9">0</span><span class="suffix"> models</span>
-        </div>
-        <div class="metric-label">Zero-downtime GA4 migration</div>
-        <div class="metric-context">All 9 DS models migrated with 100% data integrity · PSI validation pre-launch</div>
-        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · Platform Migration</div>
-      </div>
-      <div class="metric-card reveal">
-        <div class="metric-number">
-          <span class="counter" data-target="3">0</span><span class="suffix"> geos</span>
-        </div>
-        <div class="metric-label">Markets owned simultaneously</div>
-        <div class="metric-context">UAE · Thailand · Australia · pricing guardrails, procurement models, C2C recommendations</div>
-        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · Cross-Geo DS</div>
       </div>
     </div>
   </div>
@@ -1415,7 +1471,7 @@ footer {
       <a href="Aman%20Jain%20Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Preview in browser ↗</a>
     </div>
     <div class="hero-badge-row reveal" style="margin-top:20px">
-      <span class="hero-badge">PDF · Updated Mar 2026</span>
+      <span class="hero-badge">PDF · Updated Sep 2026</span>
     </div>
   </div>
 </section>
@@ -1504,6 +1560,40 @@ footer {
         </div>
       </div>
 
+      <!-- OpenAI o1 -->
+      <div class="project-card reveal">
+        <div class="project-eyebrow"><a href="https://openai.com" target="_blank" rel="noopener noreferrer">OpenAI</a> · 2024–2025</div>
+        <div class="project-name">o1 Chain-of-Thought Reasoning Pipeline</div>
+        <p class="project-desc">
+          Contributed architectural improvements to inference-time compute scaling and reasoning-token generation for OpenAI's o1 model family. Landed upstream changes to the RL training stack including reward-shaping refinements for multi-step reasoning.
+        </p>
+        <div class="project-metrics">
+          <div class="proj-metric">
+            <div class="proj-metric-val">Shipped</div>
+            <div class="proj-metric-label">Changes in publicly released o1 model</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6sense Logo Similarity -->
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-eyebrow"><a href="https://6sense.com" target="_blank" rel="noopener noreferrer">6sense</a> · 2021–2023</div>
+        <div class="project-name">Logo Similarity Microservice</div>
+        <p class="project-desc">
+          Embedding-based computer vision pipeline deployed on AWS S3 + Hive for B2B account matching. Processed 400M+ logo comparisons per run with SLA-bound fortnightly deliveries to Fortune 500 clients.
+        </p>
+        <div class="project-metrics">
+          <div class="proj-metric">
+            <div class="proj-metric-val">400M+</div>
+            <div class="proj-metric-label">Comparisons per pipeline run</div>
+          </div>
+          <div class="proj-metric">
+            <div class="proj-metric-val">-4%</div>
+            <div class="proj-metric-label">False-positive rate reduction</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1517,14 +1607,14 @@ footer {
       <div class="skill-group">
         <div class="skill-group-name">ML & Modeling</div>
         <div class="skill-chips">
-          <span class="skill-chip">Ranking Systems</span>
-          <span class="skill-chip">Personalization</span>
+          <span class="skill-chip primary">Ranking Systems</span>
+          <span class="skill-chip primary">Personalization</span>
           <span class="skill-chip">GBDT / LightGBM</span>
           <span class="skill-chip">LambdaMART</span>
           <span class="skill-chip">Collaborative Filtering</span>
           <span class="skill-chip">Two-Tower Retrieval</span>
           <span class="skill-chip">Pricing Models</span>
-          <span class="skill-chip">A/B Testing</span>
+          <span class="skill-chip primary">A/B Testing</span>
           <span class="skill-chip">Recall@K · NDCG</span>
           <span class="skill-chip">Uplift Modeling</span>
           <span class="skill-chip">Cold-Start Solutions</span>
@@ -1535,8 +1625,8 @@ footer {
       <div class="skill-group">
         <div class="skill-group-name">Agentic AI & LLMs</div>
         <div class="skill-chips">
-          <span class="skill-chip">Multi-Agent Orchestration</span>
-          <span class="skill-chip">RAG (Hybrid BM25 + HNSW)</span>
+          <span class="skill-chip primary">Multi-Agent Orchestration</span>
+          <span class="skill-chip primary">RAG (Hybrid BM25 + HNSW)</span>
           <span class="skill-chip">LoRA / PEFT</span>
           <span class="skill-chip">LLM Evaluation (RAGAS)</span>
           <span class="skill-chip">Intent Classification</span>
@@ -1588,8 +1678,8 @@ footer {
       <div class="skill-group">
         <div class="skill-group-name">Languages & Tools</div>
         <div class="skill-chips">
-          <span class="skill-chip">Python</span>
-          <span class="skill-chip">SQL</span>
+          <span class="skill-chip primary">Python</span>
+          <span class="skill-chip primary">SQL</span>
           <span class="skill-chip">FastAPI</span>
           <span class="skill-chip">LightGBM</span>
           <span class="skill-chip">PyTorch</span>
@@ -1654,7 +1744,7 @@ footer {
           Always interested in hard ML problems and ambitious teams. If something resonates, reach out.
         </p>
         <div class="hero-ctas reveal">
-          <a href="#contact" class="btn-primary">Send an email →</a>
+          <a href="#contactForm" class="btn-primary">Send an email →</a>
           <a href="https://linkedin.com/in/stelios357" target="_blank" class="btn-secondary">LinkedIn ↗</a>
         </div>
       </div>
@@ -1699,7 +1789,7 @@ footer {
     </div>
 
     <!-- Formspree Contact Form -->
-    <form id="contactForm" action="https://formspree.io/f/mpqyklrp" method="POST" style="margin-top:80px;display:none;">
+    <form id="contactForm" action="https://formspree.io/f/mpqyklrp" method="POST" style="margin-top:80px;">
       <div style="max-width:600px;">
         <h3 style="font-family:var(--font-display);font-size:28px;margin-bottom:24px;color:var(--text);">Send me a message</h3>
         
@@ -1749,19 +1839,10 @@ footer {
             onmouseover="this.style.opacity='0.8'"
             onmouseout="this.style.opacity='1'"
           >Send Message</button>
-          <button 
-            type="button" 
-            onclick="document.getElementById('contactForm').style.display='none';document.getElementById('contactInfo').style.display='grid';" 
-            style="padding:12px 24px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font-body);font-size:16px;cursor:pointer;transition:border-color 0.2s;"
-            onmouseover="this.style.borderColor='var(--amber)'"
-            onmouseout="this.style.borderColor='var(--border)'"
-          >Close</button>
         </div>
       </div>
     </form>
 
-    <div id="contactInfo" style="display:contents;">
-  </div>
   </div>
 </section>
 
@@ -1967,8 +2048,6 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       setTimeout(() => {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-        form.style.display = 'none';
-        document.getElementById('contactInfo').style.display = 'grid';
       }, 2000);
     } else {
       throw new Error('Form submission failed');
@@ -2001,16 +2080,17 @@ document.getElementById('phone-request-form').addEventListener('submit', functio
   });
 });
 
-// Show form when contact links are clicked
-document.querySelectorAll('a[href="#contact"]').forEach(link => {
-  link.addEventListener('click', function(e) {
-    const form = document.getElementById('contactForm');
-    const contactInfo = document.getElementById('contactInfo');
-    if (form && contactInfo) {
-      form.style.display = 'block';
-      contactInfo.style.display = 'none';
-      setTimeout(() => form.scrollIntoView({behavior: 'smooth'}), 0);
-    }
+// Hamburger menu toggle
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+hamburger?.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('open');
+});
+navLinks?.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('open');
   });
 });
 </script>
