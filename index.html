@@ -1447,10 +1447,13 @@ footer {
           <div class="exp-company-tag">Remote</div>
         </div>
         <div class="exp-content">
-          <div class="exp-company"><a href="https://seeqe.com" target="_blank" rel="noopener noreferrer">Vieu</a></div>
+          <div class="exp-company"><img src="logos/vieu.png" alt="" class="exp-logo"><a href="https://seeqe.com" target="_blank" rel="noopener noreferrer">Vieu</a></div>
           <div class="exp-role">DATA / ML ENGINEER</div>
           <ul class="exp-bullets">
-            <li>Building <strong>relationship intelligence graph infrastructure</strong> — data pipelines, entity resolution, and ML systems for B2B relationship mapping</li>
+            <li>Building the <strong>academic co-authorship edge pipeline (pubnet)</strong> — a new graph edge type joining co-worker, co-student, and co-athlete; ingests 250M+ entities from OpenAlex and OAG into a bronze-normalize-load pipeline with deduplication via canonical_work_id and versioned edge policy scoring</li>
+            <li>Designed a <strong>multi-stage canonicalization framework</strong> for matching scraped entities to ~900M LinkedIn person nodes in Postgres — ground-truth-first methodology using name, university, grad year, company, and hometown signals; tiered candidate filtering to protect production DB under live traffic</li>
+            <li>Conducted <strong>data source feasibility evaluations</strong> (Vieu Standard format) across OpenAlex and OAG — produced canon rate reconciliation, joint Tier-1 edge resolution estimates (~3.5–3.8% indicative), and a 74% discard-rate analysis informing pipeline design tradeoffs</li>
+            <li>Working in a <strong>pre-computed graph architecture</strong> (Postgres + OpenSearch) powering B2B relationship intelligence — Lambda-based ingestion pipelines, event-driven edge computation, and path-finding for sales outreach across a 900M-node person graph</li>
           </ul>
           <div class="exp-tags">
             <span class="exp-tag">Entity Resolution</span><span class="exp-tag">PostgreSQL</span><span class="exp-tag">OpenSearch</span>
