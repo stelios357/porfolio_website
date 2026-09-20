@@ -1080,7 +1080,7 @@ footer {
   <div class="container">
     <div class="hero-grid">
       <div>
-        <div class="hero-eyebrow">Applied Scientist · AI Engineer · MLE · Founding Engineer roles</div>
+        <div class="hero-eyebrow">Applied Scientist · AI Engineer · MLE · Founding Engineer</div>
         <h1 class="hero-name">Aman<br><em>Jain.</em></h1>
         <div class="hero-roles">
           <span style="color:var(--text-dim)">_ </span><span id="role-text"></span><span id="cursor-blink"></span>
@@ -1089,15 +1089,11 @@ footer {
           I build ML systems that move metrics at scale —
           <strong>ranking, personalization, and pricing</strong> for 1M+ monthly users at <a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a>,
           and <strong>India's first SEBI-compliant agentic trading platform</strong> at <a href="https://www.aagman.ai/" target="_blank" rel="noopener noreferrer">KotiLabs</a>.
-          4+ years across marketplaces, fintech, and AI products. Open to FAANG and high-growth startups.
+          5+ years across marketplaces, fintech, and AI products.
         </p>
         <div class="hero-ctas">
           <a href="#projects" class="btn-primary">View my work ↓</a>
           <a href="#contact" class="btn-secondary">Contact me</a>
-        </div>
-        <div class="hero-badge-row">
-          <span class="hero-badge">B.Tech + M.Tech CSE · LNMIT · SPI 9.25</span>
-          <span class="hero-badge">Published · JURISIN 2022 · Springer LNAI</span>
         </div>
       </div>
 
@@ -1655,12 +1651,8 @@ footer {
         <div class="section-label reveal">Contact</div>
         <h2 class="section-title reveal">Let's talk<br><em>about ML.</em></h2>
         <p class="section-sub reveal" style="margin-bottom:32px">
-          I'm actively looking for Applied Scientist, AI Engineer, MLE, and Senior DS roles — FAANG and high-growth startups both. I respond to well-matched opportunities within 24 hours.
+          Always interested in hard ML problems and ambitious teams. If something resonates, reach out.
         </p>
-        <div class="contact-status reveal">
-          <div class="status-dot"></div>
-          Open to opportunities · Immediate to 4 weeks
-        </div>
         <div class="hero-ctas reveal">
           <a href="#contact" class="btn-primary">Send an email →</a>
           <a href="https://linkedin.com/in/stelios357" target="_blank" class="btn-secondary">LinkedIn ↗</a>
@@ -1671,9 +1663,21 @@ footer {
           <div class="contact-row-label">Email</div>
           <div class="contact-row-val">amanj3335@gmail.com</div>
         </div>
-        <div class="contact-row">
+        <div class="contact-row" id="phone-row">
           <div class="contact-row-label">Phone</div>
-          <div class="contact-row-val">+91 876 912 8326</div>
+          <div class="contact-row-val">
+            <button id="req-phone-btn" onclick="document.getElementById('phone-request-form').style.display='block';this.style.display='none';" style="background:none;border:1px solid var(--border-2);border-radius:var(--radius);padding:6px 14px;color:var(--amber);font-family:var(--font-mono);font-size:12px;cursor:pointer;transition:border-color 0.2s,background 0.2s;" onmouseover="this.style.borderColor='var(--amber)';this.style.background='var(--amber-glow)'" onmouseout="this.style.borderColor='var(--border-2)';this.style.background='none'">Request phone number →</button>
+            <form id="phone-request-form" action="https://formspree.io/f/mpqyklrp" method="POST" style="display:none;margin-top:8px;">
+              <input type="hidden" name="_subject" value="Phone number request">
+              <input type="text" name="name" placeholder="Your name" required style="width:100%;padding:8px 12px;margin-bottom:6px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body);font-size:13px;">
+              <input type="email" name="email" placeholder="Your email" required style="width:100%;padding:8px 12px;margin-bottom:6px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body);font-size:13px;">
+              <input type="tel" name="phone" placeholder="Your phone (optional)" style="width:100%;padding:8px 12px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body);font-size:13px;">
+              <div style="display:flex;gap:8px;">
+                <button type="submit" style="flex:1;padding:8px 14px;background:var(--amber);color:var(--bg);border:none;border-radius:var(--radius);font-family:var(--font-mono);font-size:12px;font-weight:600;cursor:pointer;">Send request</button>
+                <button type="button" onclick="document.getElementById('phone-request-form').style.display='none';document.getElementById('req-phone-btn').style.display='inline-block';" style="padding:8px 14px;background:none;color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font-mono);font-size:12px;cursor:pointer;">Cancel</button>
+              </div>
+            </form>
+          </div>
         </div>
         <div class="contact-row">
           <div class="contact-row-label">LinkedIn</div>
@@ -1972,6 +1976,27 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   }).catch(error => {
     console.error('Error:', error);
     submitBtn.textContent = 'Error sending. Try again?';
+    submitBtn.disabled = false;
+  });
+});
+
+// Phone request form
+document.getElementById('phone-request-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = this;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.textContent = 'Sending...';
+  submitBtn.disabled = true;
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(response => {
+    if (response.ok) {
+      form.innerHTML = '<div style="font-family:var(--font-mono);font-size:12px;color:var(--teal);padding:8px 0;">Request sent — I\'ll get back to you shortly.</div>';
+    } else { throw new Error(); }
+  }).catch(() => {
+    submitBtn.textContent = 'Error — try again?';
     submitBtn.disabled = false;
   });
 });
