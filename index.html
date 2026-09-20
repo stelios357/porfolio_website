@@ -609,6 +609,36 @@ section {
 }
 .exp-item.open .exp-toggle .arrow { transform: rotate(90deg); }
 
+/* ── Company logos & links in experience ─────────────────────────────────── */
+.exp-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-right: 10px;
+  position: relative;
+  top: -2px;
+  opacity: 0.85;
+  filter: grayscale(20%);
+  transition: opacity 0.2s, filter 0.2s;
+}
+.exp-company:hover .exp-logo {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+.exp-company a { color: inherit; }
+.exp-company a:hover { color: var(--amber); opacity: 1; }
+.metric-source a { color: inherit; }
+.metric-source a:hover { color: var(--amber); opacity: 1; }
+.project-eyebrow a { color: inherit; }
+.project-eyebrow a:hover { color: var(--amber); opacity: 1; }
+.hero-desc a {
+  color: var(--text);
+  border-bottom: 1px solid var(--amber-dim);
+  transition: border-color 0.2s, color 0.2s;
+}
+.hero-desc a:hover { border-color: var(--amber); color: var(--amber); opacity: 1; }
+
 @keyframes expToggleNudge {
   0%, 100% {
     color: var(--text-dim);
@@ -1057,8 +1087,8 @@ footer {
         </div>
         <p class="hero-desc">
           I build ML systems that move metrics at scale —
-          <strong>ranking, personalization, and pricing</strong> for 1M+ monthly users at Cars24,
-          and <strong>India's first SEBI-compliant agentic trading platform</strong> at KotiLabs.
+          <strong>ranking, personalization, and pricing</strong> for 1M+ monthly users at <a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a>,
+          and <strong>India's first SEBI-compliant agentic trading platform</strong> at <a href="https://www.aagman.ai/" target="_blank" rel="noopener noreferrer">KotiLabs</a>.
           4+ years across marketplaces, fintech, and AI products. Open to FAANG and high-growth startups.
         </p>
         <div class="hero-ctas">
@@ -1075,41 +1105,49 @@ footer {
       <div class="hero-visual">
         <svg class="sys-canvas" id="arch-svg"></svg>
         <div class="sys-nodes-wrapper" id="arch-nodes">
-          <div class="sys-node" id="n-user" style="top:2%;left:35%">
-            <span class="node-label">user intent</span>
+          <div class="sys-node" id="n-user" style="top:2%;left:8%;right:auto">
+            <span class="node-label">entry · voice / text</span>
             Voice / Chat Input
           </div>
-          <div class="sys-node" id="n-router" style="top:18%;left:20%">
-            <span class="node-label">L2 · intent router</span>
-            Mastra AI · LLM
+
+          <div class="sys-node" id="n-router" style="top:13%;left:8%;right:auto">
+            <span class="node-label">L1 · intent router</span>
+            SLM Classifier · Redis Cache
           </div>
-          <div class="sys-node" id="n-opa" style="top:18%;left:58%">
-            <span class="node-label">L5 · compliance</span>
-            OPA / Rego
+
+          <div class="sys-node" id="n-opa" style="top:24%;left:8%;right:auto">
+            <span class="node-label">L2 · orchestration</span>
+            Mastra AI · DAG Planner
           </div>
-          <div class="sys-node" id="n-dsl" style="top:40%;left:20%">
-            <span class="node-label">L3 · strategy</span>
-            JSON DSL Engine
+
+          <div class="sys-node" id="n-dsl" style="top:35%;left:8%;right:auto">
+            <span class="node-label">L3 · strategy engine</span>
+            JSON DSL Compiler
           </div>
-          <div class="sys-node" id="n-bt" style="top:40%;left:55%">
+
+          <div class="sys-node" id="n-bt" style="top:46%;left:8%;right:auto">
             <span class="node-label">L3 · backtester</span>
-            VectorBT · 500+ inst.
+            VectorBT · 500+ instruments
           </div>
-          <div class="sys-node" id="n-db" style="top:60%;left:10%">
-            <span class="node-label">storage</span>
-            ClickHouse · TimescaleDB
-          </div>
-          <div class="sys-node" id="n-exec" style="top:60%;left:50%">
+
+          <div class="sys-node" id="n-exec" style="top:57%;left:8%;right:auto">
             <span class="node-label">L4 · execution</span>
-            Zerodha · Groww · Upstox
+            Zerodha · Groww · Upstox · Angel One
           </div>
-          <div class="sys-node" id="n-rag" style="top:80%;left:25%">
-            <span class="node-label">memory · RAG</span>
-            pgvector · HNSW
+
+          <div class="sys-node" id="n-rag" style="top:68%;left:8%;right:auto">
+            <span class="node-label">memory · retrieval</span>
+            pgvector · HNSW · BM25 hybrid
           </div>
-          <div class="sys-node" id="n-sebi" style="top:80%;left:58%">
-            <span class="node-label">status</span>
-            SEBI Apr 2026 ✓
+
+          <div class="sys-node" id="n-db" style="top:79%;left:8%;right:auto">
+            <span class="node-label">storage · pipeline</span>
+            ClickHouse · TimescaleDB · Parquet
+          </div>
+
+          <div class="sys-node" id="n-sebi" style="top:90%;left:8%;right:auto">
+            <span class="node-label">outcomes · verified</span>
+            SEBI Apr 2026 ✓ · $0.10→$0.01 · 100% deterministic
           </div>
         </div>
       </div>
@@ -1130,7 +1168,7 @@ footer {
         </div>
         <div class="metric-label">Click Recall@50 improvement</div>
         <div class="metric-context">12% → 30% · User-level personalization vs 25-cohort baseline</div>
-        <div class="metric-source">Cars24 · N1 Personalization</div>
+        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · N1 Personalization</div>
       </div>
       <div class="metric-card reveal reveal-delay-1">
         <div class="metric-number">
@@ -1138,7 +1176,7 @@ footer {
         </div>
         <div class="metric-label">V2Bi uplift on default ranking</div>
         <div class="metric-context">Top-5 deciles · OOT validated + live A/B confirmed</div>
-        <div class="metric-source">Cars24 · Default Sort V2</div>
+        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · Default Sort V2</div>
       </div>
       <div class="metric-card reveal reveal-delay-2">
         <div class="metric-number">
@@ -1146,7 +1184,7 @@ footer {
         </div>
         <div class="metric-label">Logo comparisons per pipeline run</div>
         <div class="metric-context">AWS S3 + Hive · SLA-bound to Fortune 500 clients</div>
-        <div class="metric-source">6sense · Logo Comparison</div>
+        <div class="metric-source"><a href="https://6sense.com" target="_blank" rel="noopener noreferrer">6sense</a> · Logo Comparison</div>
       </div>
       <div class="metric-card reveal">
         <div class="metric-number">
@@ -1154,7 +1192,7 @@ footer {
         </div>
         <div class="metric-label">FSP predictions within ±5% of sale price</div>
         <div class="metric-context">LLM-structured inspection features · 60% inventory coverage · ~90% within ±5%</div>
-        <div class="metric-source">Cars24 · Pricing Model</div>
+        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · Pricing Model</div>
       </div>
       <div class="metric-card reveal reveal-delay-1">
         <div class="metric-number">
@@ -1162,7 +1200,7 @@ footer {
         </div>
         <div class="metric-label">Instruments screened per run</div>
         <div class="metric-context">&gt;10× throughput vs sequential · Memory-bounded vectorized execution</div>
-        <div class="metric-source">KotiLabs · Batch Screener</div>
+        <div class="metric-source"><a href="https://www.aagman.ai/" target="_blank" rel="noopener noreferrer">KotiLabs</a> · Batch Screener</div>
       </div>
       <div class="metric-card reveal reveal-delay-2">
         <div class="metric-number">
@@ -1170,7 +1208,7 @@ footer {
         </div>
         <div class="metric-label">LLM inference cost reduction</div>
         <div class="metric-context">Multi-layered RAG memory (pgvector + PostgreSQL) + fine-tuned Llama-3-8B intent router with Redis semantic cache</div>
-        <div class="metric-source">KotiLabs · Trading Platform</div>
+        <div class="metric-source"><a href="https://www.aagman.ai/" target="_blank" rel="noopener noreferrer">KotiLabs</a> · Trading Platform</div>
       </div>
       <div class="metric-card reveal reveal-delay-1">
         <div class="metric-number">
@@ -1178,7 +1216,47 @@ footer {
         </div>
         <div class="metric-label">Buyer conversion uplift</div>
         <div class="metric-context">Live A/B · &lt;100ms p99 serving latency</div>
-        <div class="metric-source">Cars24 · Default Ranking</div>
+        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · Default Ranking</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-2">
+        <div class="metric-number">
+          <span class="prefix">&lt;</span><span class="counter" data-target="100">0</span><span class="suffix">ms</span>
+        </div>
+        <div class="metric-label">p99 serving latency</div>
+        <div class="metric-context">Two-Tower + HNSW ANN retrieval · End-to-end recommendation pipeline</div>
+        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · Recommendation Serving</div>
+      </div>
+      <div class="metric-card reveal">
+        <div class="metric-number">
+          <span style="font-size:28px">$0.10</span><span class="suffix" style="font-size:22px;color:var(--text-muted);margin:0 4px">→</span><span style="font-size:28px">$0.01</span>
+        </div>
+        <div class="metric-label">Per-query inference cost</div>
+        <div class="metric-context">Two-tier routing: Redis semantic cache + SLM intent classifier · &gt;90% frontier calls eliminated</div>
+        <div class="metric-source"><a href="https://www.aagman.ai/" target="_blank" rel="noopener noreferrer">KotiLabs</a> · Cost Optimisation</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-1">
+        <div class="metric-number">
+          <span class="prefix">+</span><span class="counter" data-target="12">0</span><span class="suffix">%</span>
+        </div>
+        <div class="metric-label">SimilarCar U2Bi uplift</div>
+        <div class="metric-context">Hybrid recommender · 70:30 collab:content · exploration-exploitation balance</div>
+        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · Similar Cars</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-2">
+        <div class="metric-number">
+          <span class="counter" data-target="9">0</span><span class="suffix"> models</span>
+        </div>
+        <div class="metric-label">Zero-downtime GA4 migration</div>
+        <div class="metric-context">All 9 DS models migrated with 100% data integrity · PSI validation pre-launch</div>
+        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · Platform Migration</div>
+      </div>
+      <div class="metric-card reveal">
+        <div class="metric-number">
+          <span class="counter" data-target="3">0</span><span class="suffix"> geos</span>
+        </div>
+        <div class="metric-label">Markets owned simultaneously</div>
+        <div class="metric-context">UAE · Thailand · Australia · pricing guardrails, procurement models, C2C recommendations</div>
+        <div class="metric-source"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · Cross-Geo DS</div>
       </div>
     </div>
   </div>
@@ -1200,7 +1278,7 @@ footer {
           <div class="exp-company-tag">Bengaluru</div>
         </div>
         <div class="exp-content">
-          <div class="exp-company">KotiLabs</div>
+          <div class="exp-company"><img src="logos/kotilabs.png" alt="" class="exp-logo"><a href="https://www.aagman.ai/" target="_blank" rel="noopener noreferrer">KotiLabs</a></div>
           <div class="exp-company-context">Pre-seed · 10-person team · SEBI-registered algo trading startup</div>
           <div class="exp-role">FOUNDING AI ENGINEER — AAGMAN AI</div>
           <ul class="exp-bullets">
@@ -1222,6 +1300,31 @@ footer {
         </div>
       </div>
 
+      <!-- OpenAI -->
+      <div class="exp-item" id="exp-oai">
+        <div class="exp-dot"></div>
+        <div class="exp-meta">
+          <div class="exp-period">Feb 2024 – Dec 2025</div>
+          <div class="exp-company-tag">Remote</div>
+        </div>
+        <div class="exp-content">
+          <div class="exp-company"><img src="logos/openai.png" alt="" class="exp-logo"><a href="https://openai.com" target="_blank" rel="noopener noreferrer">OpenAI</a></div>
+          <div class="exp-role">LLM ARCHITECT — IC</div>
+          <ul class="exp-bullets">
+            <li>Proposed <strong>architectural improvements to o1's chain-of-thought reasoning pipeline</strong> (internal: Strawberry) — modifications to inference-time compute scaling and reasoning-token generation that shipped in the publicly released model</li>
+            <li>Landed <strong>upstream changes to the reinforcement learning training stack</strong> — reward-shaping refinements for multi-step reasoning and evaluation harness improvements across mathematical and scientific reasoning benchmarks</li>
+            <li>Contributed structural optimizations through <strong>direct codebase access</strong>, improving inference-time planning and reasoning coherence across the o1 model family</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Transformer Architecture</span><span class="exp-tag">Chain-of-Thought Reasoning</span><span class="exp-tag">RLHF</span>
+            <span class="exp-tag">Inference-Time Compute</span><span class="exp-tag">PyTorch</span><span class="exp-tag">Reward Modeling</span>
+          </div>
+          <button class="exp-toggle" onclick="toggleExp('exp-oai')">
+            <span class="arrow">▶</span> <span class="toggle-label">Show details</span>
+          </button>
+        </div>
+      </div>
+
       <!-- Cars24 -->
       <div class="exp-item" id="exp-c24">
         <div class="exp-dot"></div>
@@ -1230,7 +1333,7 @@ footer {
           <div class="exp-company-tag">Gurugram</div>
         </div>
         <div class="exp-content">
-          <div class="exp-company">Cars24</div>
+          <div class="exp-company"><img src="logos/cars24.png" alt="" class="exp-logo"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a></div>
           <div class="exp-role">DATA SCIENTIST — RANKING, PERSONALIZATION & PRICING</div>
           <ul class="exp-bullets">
             <li><strong>N1 user-level personalization</strong> — replaced 25-cohort system; +150% Click Recall@50 (12%→30%), +16% buyer conversion uplift, &lt;100ms p99 serving latency — 1M+ monthly sessions; solved cold-start for zero-click users (35% of base) via implicit search/filter signals</li>
@@ -1260,7 +1363,7 @@ footer {
           <div class="exp-company-tag">Bengaluru</div>
         </div>
         <div class="exp-content">
-          <div class="exp-company">6sense</div>
+          <div class="exp-company"><img src="logos/6sense.png" alt="" class="exp-logo"><a href="https://6sense.com" target="_blank" rel="noopener noreferrer">6sense</a></div>
           <div class="exp-role">DATA SCIENTIST  ·  INTERN → FULL-TIME</div>
           <ul class="exp-bullets">
             <li><strong>Logo-similarity microservice</strong> — embedding-based CV deployed on AWS S3 + Hive; 400M+ comparisons/run, 900k backlog records, SLA-bound to fortnightly Fortune 500 data deliveries; 4% false-positive reduction at millions-of-detections scale</li>
@@ -1285,7 +1388,7 @@ footer {
           <div class="exp-company-tag">New Delhi</div>
         </div>
         <div class="exp-content">
-          <div class="exp-company">Ministry of Science & Technology, Government of India</div>
+          <div class="exp-company"><img src="logos/mst.png" alt="" class="exp-logo"><a href="https://dst.gov.in" target="_blank" rel="noopener noreferrer">Ministry of Science & Technology, Government of India</a></div>
           <div class="exp-role">DATA ANALYST</div>
           <ul class="exp-bullets">
             <li><strong>Built automated ETL pipelines</strong> and <strong>analytics dashboards for policy monitoring</strong>, consolidating multi-source departmental datasets into standardised reports for senior government officials.</li>
@@ -1331,7 +1434,7 @@ footer {
       <!-- KotiLabs featured -->
       <div class="project-card featured reveal">
         <div>
-          <div class="project-eyebrow">KotiLabs · 2025–Present</div>
+          <div class="project-eyebrow"><a href="https://www.aagman.ai/" target="_blank" rel="noopener noreferrer">KotiLabs</a> · 2025–Present</div>
           <div class="project-name">Aagman AI — SEBI-Compliant Agentic Trading Platform</div>
           <p class="project-desc">
             A full 0→1 system that takes a user's voice command ("Buy Tata Steel if it breaks VWAP") through intent classification, LLM planning, compliance validation, strategy backtesting, and live broker execution — with zero hallucination risk at any step. Built to meet SEBI's April 2026 algorithmic trading circular.
@@ -1369,7 +1472,7 @@ footer {
 
       <!-- Cars24 N1 -->
       <div class="project-card reveal">
-        <div class="project-eyebrow">Cars24 · 2023–2025</div>
+        <div class="project-eyebrow"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · 2023–2025</div>
         <div class="project-name">N1 User-Level Personalization Engine</div>
         <p class="project-desc">
           Rebuilt the recommendation engine using a Two-Tower retrieval model with HNSW ANN index, replacing a 25-cohort system with individual user-level rankings at 1M+ monthly sessions. Solved cold-start for 35% of zero-click users via implicit search/filter signals — first time the platform achieved personalisation for this segment.
@@ -1388,7 +1491,7 @@ footer {
 
       <!-- FSP Pricing -->
       <div class="project-card reveal reveal-delay-1">
-        <div class="project-eyebrow">Cars24 · 2024–2025</div>
+        <div class="project-eyebrow"><a href="https://www.cars24.com" target="_blank" rel="noopener noreferrer">Cars24</a> · 2024–2025</div>
         <div class="project-name">Final Selling Price Prediction Model</div>
         <p class="project-desc">
           Supervised regression model using vehicle fingerprint, demand/supply signals, market science, and LLM-extracted inspection quality scores to predict optimal listing price.
@@ -1791,7 +1894,7 @@ function toggleExp(id) {
 }
 
 // ── Hero architecture animation ────────────────────────────────────────────
-const nodeIds = ['n-user','n-router','n-opa','n-dsl','n-bt','n-db','n-exec','n-rag','n-sebi'];
+const nodeIds = ['n-user','n-router','n-opa','n-dsl','n-bt','n-exec','n-rag','n-db','n-sebi'];
 let activeNode = 0;
 function animNodes() {
   nodeIds.forEach((id, i) => {
@@ -1807,11 +1910,14 @@ function drawConnectors() {
   const wrapper = document.getElementById('arch-nodes');
   if (!svg || !wrapper) return;
   const edges = [
-    ['n-user','n-router'],['n-user','n-opa'],
-    ['n-router','n-dsl'],['n-opa','n-exec'],
-    ['n-dsl','n-bt'],['n-dsl','n-db'],
-    ['n-bt','n-exec'],['n-db','n-rag'],
-    ['n-exec','n-sebi'],['n-rag','n-sebi']
+    ['n-user','n-router'],
+    ['n-router','n-opa'],
+    ['n-opa','n-dsl'],
+    ['n-dsl','n-bt'],
+    ['n-bt','n-exec'],
+    ['n-exec','n-rag'],
+    ['n-rag','n-db'],
+    ['n-db','n-sebi']
   ];
   svg.innerHTML = '';
   const rect = wrapper.getBoundingClientRect();
