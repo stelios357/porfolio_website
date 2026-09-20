@@ -1108,6 +1108,62 @@ footer {
 [data-theme="light"] .theme-toggle .icon-sun  { display: inline; }
 [data-theme="light"] .theme-toggle .icon-moon { display: none; }
 
+/* ── WRITING SECTION ─────────────────────────────────────────────────────── */
+.writing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+.writing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: border-color 0.3s, transform 0.3s;
+  text-decoration: none;
+  display: block;
+}
+.writing-card:hover {
+  border-color: var(--amber-dim);
+  transform: translateY(-2px);
+}
+.writing-card-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+.writing-card-eyebrow .tag {
+  color: var(--amber);
+  background: var(--amber-glow);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+.writing-card h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.writing-card p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.writing-more {
+  display: inline-block;
+  margin-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--amber);
+  transition: opacity 0.2s;
+}
+.writing-more:hover { opacity: 0.8; }
+
 /* ── NEWSLETTER ──────────────────────────────────────────────────────────── */
 .newsletter {
   border-top: 1px solid var(--border);
@@ -1267,6 +1323,7 @@ footer {
       <li><a href="#resume">Resume</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#research">Research</a></li>
+      <li><a href="/blog/">Blog</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Get in touch →</a>
@@ -1828,6 +1885,34 @@ footer {
 </section>
 
 <button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
+<!-- ── WRITING ────────────────────────────────────────────────────────────── -->
+<section id="writing">
+  <div class="container">
+    <div class="section-label reveal">Writing</div>
+    <h2 class="section-title reveal">Technical <em>deep-dives.</em></h2>
+
+    <div class="writing-grid reveal">
+      <a href="/blog/agentic-trading-platform/" class="writing-card">
+        <div class="writing-card-eyebrow"><span class="tag">Agentic AI</span>Coming soon</div>
+        <h3>Building a Neuro-Symbolic Trading Platform Under SEBI Compliance</h3>
+        <p>LLMs plan, deterministic engines execute — zero hallucination-induced regulatory breach.</p>
+      </a>
+      <a href="/blog/ranking-personalization-cars24/" class="writing-card">
+        <div class="writing-card-eyebrow"><span class="tag">Ranking</span>Coming soon</div>
+        <h3>N=1 Personalization: Replacing 25 Cohorts with User-Level Ranking</h3>
+        <p>+150% Click Recall@50, +16% conversion, and solving cold-start for 35% of users.</p>
+      </a>
+      <a href="/blog/entity-resolution-graph/" class="writing-card">
+        <div class="writing-card-eyebrow"><span class="tag">Entity Resolution</span>Coming soon</div>
+        <h3>Entity Resolution at 900M Scale</h3>
+        <p>Matching scraped profiles to a person graph with tiered candidate filtering under live traffic.</p>
+      </a>
+    </div>
+
+    <a href="/blog/" class="writing-more">View all posts →</a>
+  </div>
+</section>
 
 <!-- ── NEWSLETTER ─────────────────────────────────────────────────────────── -->
 <div class="newsletter">

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Aman Jain</title>
+<meta name="description" content="Technical deep-dives on ranking systems, entity resolution, agentic AI, and ML infrastructure — by Aman Jain.">
+<meta property="og:title" content="Blog — Aman Jain">
+<meta property="og:description" content="Technical deep-dives on ranking systems, entity resolution, agentic AI, and ML infrastructure.">
+<meta property="og:url" content="https://amanjain.codes/blog/">
+<link rel="canonical" href="https://amanjain.codes/blog/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%23080C14'/><text x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-size='36' font-weight='600' fill='%23F0A030'>AJ</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --bg:          #080C14;
+  --surface:     #0D1220;
+  --surface-2:   #121A2E;
+  --surface-3:   #18223C;
+  --border:      #1C2840;
+  --border-2:    #253352;
+  --text:        #DDE4F0;
+  --text-muted:  #7E92B8;
+  --text-dim:    #3D4F72;
+  --amber:       #F0A030;
+  --amber-dim:   #8A5A10;
+  --amber-glow:  rgba(240,160,48,0.12);
+  --teal:        #22C9A0;
+  --teal-dim:    rgba(34,201,160,0.1);
+  --font-display:'Fraunces', Georgia, serif;
+  --font-mono:   'JetBrains Mono', 'Courier New', monospace;
+  --font-body:   'DM Sans', system-ui, sans-serif;
+  --radius:      6px;
+  --radius-lg:   12px;
+  --max-w:       1120px;
+  --nav-h:       64px;
+}
+
+[data-theme="light"] {
+  --bg:          #F5F5F0;
+  --surface:     #EEEEE8;
+  --surface-2:   #E5E5DF;
+  --surface-3:   #DDDDD7;
+  --border:      #D0D0C8;
+  --border-2:    #B8B8AE;
+  --text:        #1A1A2E;
+  --text-muted:  #4A4A5E;
+  --text-dim:    #8A8A9E;
+  --amber:       #C07820;
+  --amber-dim:   #D4A060;
+  --amber-glow:  rgba(192,120,32,0.10);
+  --teal:        #0E8A6E;
+  --teal-dim:    rgba(14,138,110,0.08);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+
+/* Nav */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  display: flex; align-items: center;
+  background: rgba(8,12,20,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  z-index: 100;
+  transition: border-color 0.3s;
+}
+[data-theme="light"] nav { background: rgba(245,245,240,0.85); }
+nav.scrolled { border-color: var(--border); }
+.nav-inner { display: flex; align-items: center; width: 100%; }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-right: auto;
+}
+.nav-logo span { color: var(--amber); }
+.nav-links { list-style: none; display: flex; gap: 28px; }
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--amber); }
+.theme-toggle {
+  background: none; border: 1px solid var(--border);
+  border-radius: 50%; width: 36px; height: 36px;
+  color: var(--text-muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  margin-left: 20px; font-size: 16px;
+  transition: border-color 0.2s;
+}
+.theme-toggle:hover { border-color: var(--amber); color: var(--amber); }
+.icon-sun { display: none; }
+[data-theme="light"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun { display: inline; }
+
+/* Hamburger */
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; margin-left: 12px; }
+.hamburger span { display: block; width: 20px; height: 2px; background: var(--text-muted); margin: 4px 0; transition: all 0.3s; }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: var(--bg); flex-direction: column; align-items: center; padding: 24px 0; gap: 20px; border-bottom: 1px solid var(--border); }
+  .nav-links.open { display: flex; }
+  .hamburger { display: block; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+}
+</style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav id="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">AJ<span>.codes</span></a>
+    <ul class="nav-links">
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/blog/" class="active" style="color:var(--amber)">Blog</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <span class="icon-moon">&#9790;</span>
+      <span class="icon-sun">&#9728;</span>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="blog-header">
+    <h1>Technical <em>writing.</em></h1>
+    <p>Deep-dives on the systems I've built — ranking, entity resolution, agentic AI, and ML infrastructure.</p>
+  </div>
+
+  <div class="blog-tags-filter" id="tagFilter">
+    <button class="active" data-tag="all">All</button>
+    <button data-tag="ranking">Ranking</button>
+    <button data-tag="entity-resolution">Entity Resolution</button>
+    <button data-tag="agentic-ai">Agentic AI</button>
+    <button data-tag="infra">Infrastructure</button>
+  </div>
+
+  <div class="blog-grid" id="blogGrid">
+
+    <a href="/blog/agentic-trading-platform/" class="blog-card" data-tags="agentic-ai infra">
+      <div class="blog-card-eyebrow">
+        <span class="tag">Agentic AI</span>
+        <span>Coming soon</span>
+      </div>
+      <h2>Building a Neuro-Symbolic Trading Platform Under SEBI Compliance</h2>
+      <p>How I architected a 5-layer system where LLMs plan and deterministic policy engines execute — zero hallucination-induced regulatory breach, by design.</p>
+      <div class="blog-card-footer">
+        <span class="chip">Mastra AI</span>
+        <span class="chip">OPA/Rego</span>
+        <span class="chip">VectorBT</span>
+        <span class="chip">ClickHouse</span>
+      </div>
+    </a>
+
+    <a href="/blog/ranking-personalization-cars24/" class="blog-card" data-tags="ranking infra">
+      <div class="blog-card-eyebrow">
+        <span class="tag">Ranking</span>
+        <span>Coming soon</span>
+      </div>
+      <h2>N=1 Personalization: Replacing 25 Cohorts with User-Level Ranking</h2>
+      <p>From cohort-based defaults to true user-level personalization at Cars24 — +150% Click Recall@50, +16% buyer conversion, and solving cold-start for 35% of the user base.</p>
+      <div class="blog-card-footer">
+        <span class="chip">LightGBM</span>
+        <span class="chip">Two-Tower</span>
+        <span class="chip">HNSW</span>
+        <span class="chip">A/B Testing</span>
+      </div>
+    </a>
+
+    <a href="/blog/entity-resolution-graph/" class="blog-card" data-tags="entity-resolution infra">
+      <div class="blog-card-eyebrow">
+        <span class="tag">Entity Resolution</span>
+        <span>Coming soon</span>
+      </div>
+      <h2>Entity Resolution at 900M Scale: Matching Scraped Profiles to a Person Graph</h2>
+      <p>Multi-stage canonicalization matching scraped entities to ~900M LinkedIn person nodes — ground-truth-first methodology with tiered candidate filtering under live traffic.</p>
+      <div class="blog-card-footer">
+        <span class="chip">PostgreSQL</span>
+        <span class="chip">OpenSearch</span>
+        <span class="chip">OpenAlex</span>
+        <span class="chip">AWS Batch</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<footer style="border-top:1px solid var(--border);padding:32px 0;margin-top:40px;">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+    <div style="font-family:var(--font-mono);font-size:13px;color:var(--text-dim);">© 2026 Aman Jain · amanjain.codes</div>
+    <div style="display:flex;gap:20px;">
+      <a href="/#contact" style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted);transition:color 0.2s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color=''">Email</a>
+      <a href="https://www.linkedin.com/in/amanjaincodes/" target="_blank" style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted);transition:color 0.2s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color=''">LinkedIn</a>
+      <a href="https://github.com/stelios357" target="_blank" style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted);transition:color 0.2s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color=''">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Theme toggle
+const saved = localStorage.getItem('theme');
+if (saved) document.documentElement.setAttribute('data-theme', saved);
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'light' ? '' : 'light';
+  if (next) document.documentElement.setAttribute('data-theme', next);
+  else document.documentElement.removeAttribute('data-theme');
+  localStorage.setItem('theme', next);
+});
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('active');
+  navLinks.classList.remove('open');
+}));
+
+// Tag filter
+document.getElementById('tagFilter').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  document.querySelectorAll('#tagFilter button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const tag = btn.dataset.tag;
+  document.querySelectorAll('.blog-card').forEach(card => {
+    card.style.display = (tag === 'all' || card.dataset.tags.includes(tag)) ? '' : 'none';
+  });
+});
+</script>
+
+</body>
+</html>

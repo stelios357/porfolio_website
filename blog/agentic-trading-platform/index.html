@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon — Aman Jain</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%23080C14'/><text x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-size='36' font-weight='600' fill='%23F0A030'>AJ</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #080C14; --surface: #0D1220; --border: #1C2840;
+  --text: #DDE4F0; --text-muted: #7E92B8; --text-dim: #3D4F72;
+  --amber: #F0A030; --amber-glow: rgba(240,160,48,0.12);
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+[data-theme="light"] {
+  --bg: #F5F5F0; --surface: #EEEEE8; --border: #D0D0C8;
+  --text: #1A1A2E; --text-muted: #4A4A5E; --text-dim: #8A8A9E;
+  --amber: #C07820; --amber-glow: rgba(192,120,32,0.10);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32px;
+  font-size: 28px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+h1 em { font-style: italic; color: var(--amber); }
+
+p {
+  color: var(--text-muted);
+  font-size: 16px;
+  max-width: 440px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.back {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--amber);
+  text-decoration: none;
+  padding: 10px 24px;
+  border: 1px solid var(--amber);
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.back:hover { background: var(--amber-glow); }
+
+.dot-pattern {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: -1;
+}
+</style>
+</head>
+<body>
+<div class="dot-pattern"></div>
+<div class="icon">&#9998;</div>
+<h1>Still <em>writing.</em></h1>
+<p>This post is in the works. Check back soon for a detailed technical deep-dive with diagrams and all.</p>
+<a href="/blog/" class="back">← Back to blog</a>
+
+<script>
+const saved = localStorage.getItem('theme');
+if (saved) document.documentElement.setAttribute('data-theme', saved);
+</script>
+</body>
+</html>
